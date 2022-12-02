@@ -34,6 +34,7 @@ int index = 0;
       ),
       body: Container(
         width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Column(
           children: [
             QuestionWidget(
