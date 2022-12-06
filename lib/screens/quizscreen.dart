@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:quizapp/style/appstyle.dart';
 import 'package:quizapp/models/questions_model.dart';
+import 'package:quizapp/widgets/next_question_button.dart';
 import 'package:quizapp/widgets/question_widget.dart';
+import 'package:quizapp/widgets/next_question_button.dart';
+import 'package:quizapp/widgets/option_card.dart';
 
 class QuizScreen extends StatefulWidget {
   const QuizScreen({super.key});
@@ -22,6 +25,16 @@ class _QuizScreenState extends State<QuizScreen> {
 //index for looping through questions
 int index = 0;
 
+void nextQuestion(){
+  setState(() {
+    if(index== _questions.length - 1){ 
+      return;
+      }
+      else {
+    index++; //
+      }
+  });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +54,20 @@ int index = 0;
               indexAction: index,
                question: _questions[index].title,
                 totalQuestions: _questions.length
-                )
+                ),
+           for(int i = 0; i<_questions[index].answers.length; i++)
+           OptionCard(option: _questions[index].answers.keys.toList()[i]),
           ],
         )
       ),
+
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: NextButton(
+          nextQuestion: nextQuestion,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
     
   }
