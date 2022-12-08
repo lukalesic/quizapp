@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:quizapp/style/appstyle.dart';
 
-class PosterAnswerView extends StatelessWidget {
-  final int id;
-  final String title;
-  final String posterUrl;
+class AnswerOption extends StatelessWidget {
 
-  const PosterAnswerView(
-      {super.key,
-      required this.id,
-      required this.title,
-      required this.posterUrl});
+    final String Id; 
+    final VoidCallback nextQuestion;
+    final String movieTitle;
+    final String posterURL;
+    
+
+    const AnswerOption({super.key,
+     required this.Id,
+     required this.nextQuestion,
+     required this.movieTitle,
+     required this.posterURL,
+     
+     });
+
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        // handle answering a question
-      },
+    return GestureDetector(
+      onTap: nextQuestion,
+      child: InkWell(
       customBorder: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
@@ -29,14 +34,15 @@ class PosterAnswerView extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(8))),
         child: Column(
           children: [
-            Image.network(posterUrl),
+            Image.network(posterURL),
             const SizedBox(height: 8),
             Text(
-              title,
+              movieTitle,
               style: AppStyle.mainContent,
             )
           ],
         ),
+      ),
       ),
     );
   }

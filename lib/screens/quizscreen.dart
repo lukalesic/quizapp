@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:quizapp/style/appstyle.dart';
 import 'package:quizapp/models/questions_model.dart';
+import 'package:quizapp/widgets/answer_option.dart';
 import 'package:quizapp/widgets/next_question_button.dart';
-import 'package:quizapp/widgets/poster_answer_view.dart';
 import 'package:quizapp/widgets/question_widget.dart';
-import 'package:quizapp/widgets/option_card.dart';
+import '../models/urls.dart';
 
 class QuizScreen extends StatefulWidget {
   const QuizScreen({super.key});
@@ -30,18 +30,18 @@ class _QuizScreenState extends State<QuizScreen> {
   ];
 
 //index for looping through questions
-int index = 0;
+  int index = 0;
+  bool isPressed = false;
 
-void nextQuestion(){
-  setState(() {
-    if(index== _questions.length - 1){ 
-      return;
+  void nextQuestion() {
+    setState(() {
+      if (index == _questions.length - 1) {
+        return;
+      } else {
+        index++; //
       }
-      else {
-    index++; //
-      }
-  });
-}
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,34 +66,30 @@ void nextQuestion(){
                   question: _questions[index].title,
                   totalQuestions: _questions.length),
               Table(
-                children: const [
+                children: [
                   TableRow(children: [
-                    PosterAnswerView(
-                      id: 1,
-                      title: 'Movie 1',
-                      posterUrl:
-                          'https://d3sourxycqfpzg.cloudfront.net/production/infos/posters/658032/small.jpg',
-                    ),
-                    PosterAnswerView(
-                      id: 2,
-                      title: 'Movie 2',
-                      posterUrl:
-                          'https://d3sourxycqfpzg.cloudfront.net/production/infos/posters/658032/small.jpg',
-                    )
+                    AnswerOption(
+                        Id: '1',
+                        nextQuestion: nextQuestion,
+                        movieTitle: 'Title 1',
+                        posterURL: URLs[0]),
+                    AnswerOption(
+                        Id: '2',
+                        nextQuestion: nextQuestion,
+                        movieTitle: 'Title 2',
+                        posterURL: URLs[1]),
                   ]),
                   TableRow(children: [
-                    PosterAnswerView(
-                      id: 3,
-                      title: 'Movie 3',
-                      posterUrl:
-                          'https://d3sourxycqfpzg.cloudfront.net/production/infos/posters/658032/small.jpg',
-                    ),
-                    PosterAnswerView(
-                      id: 4,
-                      title: 'Movie 4',
-                      posterUrl:
-                          'https://d3sourxycqfpzg.cloudfront.net/production/infos/posters/658032/small.jpg',
-                    )
+                    AnswerOption(
+                        Id: '3',
+                        nextQuestion: nextQuestion,
+                        movieTitle: 'Title 3',
+                        posterURL: URLs[2]),
+                    AnswerOption(
+                        Id: '4',
+                        nextQuestion: nextQuestion,
+                        movieTitle: 'Title 4',
+                        posterURL: URLs[3]),
                   ])
                 ],
               )
