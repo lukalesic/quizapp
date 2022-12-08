@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:quizapp/style/appstyle.dart';
 import 'package:quizapp/models/questions_model.dart';
+import 'package:quizapp/widgets/next_question_button.dart';
 import 'package:quizapp/widgets/poster_answer_view.dart';
 import 'package:quizapp/widgets/question_widget.dart';
+import 'package:quizapp/widgets/option_card.dart';
 
 class QuizScreen extends StatefulWidget {
   const QuizScreen({super.key});
@@ -28,7 +30,18 @@ class _QuizScreenState extends State<QuizScreen> {
   ];
 
 //index for looping through questions
-  int index = 0;
+int index = 0;
+
+void nextQuestion(){
+  setState(() {
+    if(index== _questions.length - 1){ 
+      return;
+      }
+      else {
+    index++; //
+      }
+  });
+}
 
   @override
   Widget build(BuildContext context) {
