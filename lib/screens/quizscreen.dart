@@ -5,37 +5,25 @@ import 'package:quizapp/widgets/answer_option.dart';
 import 'package:quizapp/widgets/next_question_button.dart';
 import 'package:quizapp/widgets/question_widget.dart';
 import '../models/urls.dart';
+import '../models/questions.dart';
 
 class QuizScreen extends StatefulWidget {
-  const QuizScreen({super.key});
+  const QuizScreen({
+    super.key,
+  });
 
   @override
   State<QuizScreen> createState() => _QuizScreenState();
 }
 
 class _QuizScreenState extends State<QuizScreen> {
-  List<Question> _questions = [
-    Question(
-        id: '1',
-        title: 'Question 1',
-        answers: {'a': false, 'b': false, 'c': true, 'd': false}),
-    Question(
-        id: '2',
-        title: 'Question 1',
-        answers: {'a': false, 'b': false, 'c': true, 'd': false}),
-    Question(
-        id: '3',
-        title: 'Question 1',
-        answers: {'a': false, 'b': false, 'c': true, 'd': false})
-  ];
-
 //index for looping through questions
   int index = 0;
   bool isPressed = false;
 
   void nextQuestion() {
     setState(() {
-      if (index == _questions.length - 1) {
+      if (index == questions.length - 1) {
         return;
       } else {
         index++; //
@@ -63,33 +51,18 @@ class _QuizScreenState extends State<QuizScreen> {
             children: [
               QuestionWidget(
                   indexAction: index,
-                  question: _questions[index].title,
-                  totalQuestions: _questions.length),
+                  question: questions[index].title,
+                  totalQuestions: questions.length),
+                  
               Table(
                 children: [
                   TableRow(children: [
-                    AnswerOption(
-                        Id: '1',
-                        nextQuestion: nextQuestion,
-                        movieTitle: 'Title 1',
-                        posterURL: URLs[0]),
-                    AnswerOption(
-                        Id: '2',
-                        nextQuestion: nextQuestion,
-                        movieTitle: 'Title 2',
-                        posterURL: URLs[1]),
-                  ]),
-                  TableRow(children: [
-                    AnswerOption(
-                        Id: '3',
-                        nextQuestion: nextQuestion,
-                        movieTitle: 'Title 3',
-                        posterURL: URLs[2]),
-                    AnswerOption(
-                        Id: '4',
-                        nextQuestion: nextQuestion,
-                        movieTitle: 'Title 4',
-                        posterURL: URLs[3]),
+                    for (int i = 0; i < questions[index].answers.length; i++)
+                      AnswerOption(
+                          Id: questions[index].answers[i].Id,
+                          movieTitle: questions[index].answers[i].movieTitle,
+                          posterURL: questions[index].answers[i].posterURL,
+                          correct: questions[index].answers[i].correct)
                   ])
                 ],
               )
