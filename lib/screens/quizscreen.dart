@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quizapp/style/appstyle.dart';
 import 'package:quizapp/models/questions_model.dart';
+import 'package:quizapp/style/appstyle.dart';
 import 'package:quizapp/widgets/poster_answer_view.dart';
 import 'package:quizapp/widgets/question_widget.dart';
 
@@ -33,7 +33,6 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppStyle.backgroundColor,
       appBar: AppBar(
         elevation: 0.0,
         leading: const BackButton(
@@ -41,51 +40,71 @@ class _QuizScreenState extends State<QuizScreen> {
         ),
         backgroundColor: AppStyle.accentColor,
       ),
-      body: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              QuestionWidget(
+      backgroundColor: AppStyle.backgroundColor,
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: QuestionWidget(
                   indexAction: index,
                   question: _questions[index].title,
                   totalQuestions: _questions.length),
-              Table(
-                children: const [
-                  TableRow(children: [
-                    PosterAnswerView(
+            ),
+            Expanded(
+              flex: 2,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: const <Widget>[
+                  Expanded(
+                      child: PosterAnswerView(
+                    id: 1,
+                    title: 'Movie 1',
+                    posterUrl:
+                        'https://d3sourxycqfpzg.cloudfront.net/production/infos/posters/658032/small.jpg',
+                  )),
+                  Expanded(
+                    child: PosterAnswerView(
                       id: 1,
                       title: 'Movie 1',
                       posterUrl:
                           'https://d3sourxycqfpzg.cloudfront.net/production/infos/posters/658032/small.jpg',
                     ),
-                    PosterAnswerView(
-                      id: 2,
-                      title: 'Movie 2',
-                      posterUrl:
-                          'https://d3sourxycqfpzg.cloudfront.net/production/infos/posters/658032/small.jpg',
-                    )
-                  ]),
-                  TableRow(children: [
-                    PosterAnswerView(
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: const <Widget>[
+                  Expanded(
+                    child: PosterAnswerView(
                       id: 3,
                       title: 'Movie 3',
                       posterUrl:
                           'https://d3sourxycqfpzg.cloudfront.net/production/infos/posters/658032/small.jpg',
                     ),
-                    PosterAnswerView(
+                  ),
+                  Expanded(
+                    child: PosterAnswerView(
                       id: 4,
                       title: 'Movie 4',
                       posterUrl:
                           'https://d3sourxycqfpzg.cloudfront.net/production/infos/posters/658032/small.jpg',
-                    )
-                  ])
+                    ),
+                  ),
                 ],
-              )
-            ],
-          )),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
