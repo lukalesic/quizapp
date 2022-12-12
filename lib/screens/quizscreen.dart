@@ -27,15 +27,22 @@ class _QuizScreenState extends State<QuizScreen> {
 
   void nextQuestion(bool value) {
     setState(() {
-      if(timer + 3 >= 10){ timer = 10;}
-      else{timer = timer + 3;}
+      if (timer + 3 >= 10) {
+        timer = 10;
+      } else {
+        timer = timer + 3;
+      }
       if (value == true) {
         correctAnswers++;
       }
       if (index == questions.length - 1) {
         //end of questions
-        Navigator.push(context,
-                      MaterialPageRoute(builder: ((context) => WinnerScreen(resultScore: correctAnswers,))));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: ((context) => WinnerScreen(
+                      resultScore: correctAnswers,
+                    ))));
         return;
       } else {
         index++;
@@ -43,31 +50,30 @@ class _QuizScreenState extends State<QuizScreen> {
     });
   }
 
-@override
-  void initState(){
+  @override
+  void initState() {
     startTimer();
     super.initState();
   }
 
-  void startTimer() async{
+  void startTimer() async {
     Timer.periodic(Duration(seconds: 1), (Timer t) {
-
-        setState(() {
-          if(timer < 1){
-            t.cancel();
-            //here goes navigator for going to game over screen
-            Navigator.push(context,
-                      MaterialPageRoute(builder: ((context) => LoseScreen(resultScore: correctAnswers))));
-          } else {
-            timer = timer - 1;
-          }
-          timerDisplay = timer.toString();
-
-        });
-
-     });
+      setState(() {
+        if (timer < 1) {
+          t.cancel();
+          //here goes navigator for going to game over screen
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: ((context) =>
+                      LoseScreen(resultScore: correctAnswers))));
+        } else {
+          timer = timer - 1;
+        }
+        timerDisplay = timer.toString();
+      });
+    });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -110,20 +116,16 @@ class _QuizScreenState extends State<QuizScreen> {
                 children: <Widget>[
                   Expanded(
                       child: AnswerOption(
-                    Id: '1',
-                    movieTitle: 'Movie 1',
-                    posterURL:
-                        'https://d3sourxycqfpzg.cloudfront.net/production/infos/posters/658032/small.jpg',
-                    correct: false,
-                  )),
+                          Id: questions[index].answers[0].Id,
+                          movieTitle: questions[index].answers[0].movieTitle,
+                          posterURL: questions[index].answers[0].posterURL,
+                          correct: questions[index].answers[0].correct)),
                   Expanded(
                     child: AnswerOption(
-                      Id: '1',
-                      movieTitle: 'Movie 1',
-                      posterURL:
-                          'https://d3sourxycqfpzg.cloudfront.net/production/infos/posters/658032/small.jpg',
-                      correct: false,
-                    ),
+                        Id: questions[index].answers[1].Id,
+                        movieTitle: questions[index].answers[1].movieTitle,
+                        posterURL: questions[index].answers[1].posterURL,
+                        correct: questions[index].answers[1].correct),
                   ),
                 ],
               ),
@@ -136,20 +138,17 @@ class _QuizScreenState extends State<QuizScreen> {
                 children: <Widget>[
                   Expanded(
                     child: AnswerOption(
-                      Id: '3',
-                      movieTitle: 'Movie 3',
-                      posterURL:
-                          'https://d3sourxycqfpzg.cloudfront.net/production/infos/posters/658032/small.jpg',
-                      correct: false,
-                    ),
+                        Id: questions[index].answers[2].Id,
+                        movieTitle: questions[index].answers[2].movieTitle,
+                        posterURL: questions[index].answers[2].posterURL,
+                        correct: questions[index].answers[2].correct),
                   ),
                   Expanded(
                     child: AnswerOption(
-                      Id: '4',
-                      movieTitle: 'Movie 4',
-                      posterURL:
-                          'https://d3sourxycqfpzg.cloudfront.net/production/infos/posters/658032/small.jpg',
-                      correct: true,
+                      Id: questions[index].answers[3].Id,
+                      movieTitle: questions[index].answers[3].movieTitle,
+                      posterURL: questions[index].answers[3].posterURL,
+                      correct: questions[index].answers[3].correct,
                     ),
                   ),
                 ],
