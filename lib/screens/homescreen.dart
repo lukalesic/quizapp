@@ -4,7 +4,7 @@ import 'package:quizapp/screens/quizscreen.dart';
 import 'package:quizapp/widgets/quiz_card.dart';
 import '../models/questions_model.dart';
 import '../style/appstyle.dart';
-import 'package:firebase_core/firebase_core.dart';
+//import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomeScreen extends StatefulWidget {
