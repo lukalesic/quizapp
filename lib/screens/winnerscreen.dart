@@ -1,38 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:quizapp/screens/homescreen.dart';
 import 'package:quizapp/screens/quizscreen.dart';
-import 'package:quizapp/widgets/quiz_card.dart';
-import '../models/questions_model.dart';
-import '../style/appstyle.dart';
-//import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+import '../style/appstyle.dart';
+
+class WinnerScreen extends StatefulWidget {
+  final int resultScore;
+  const WinnerScreen({required this.resultScore, super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<WinnerScreen> createState() => _WinnerScreenState(resultScore);
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _WinnerScreenState extends State<WinnerScreen> {
+  int resultScore;
+  _WinnerScreenState(this.resultScore);
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppStyle.backgroundColor,
-      appBar: AppBar(
-        elevation: 0.0,
-        title: Text("Quiz", style: AppStyle.mainTitle),
-        foregroundColor: Colors.black,
-        centerTitle: true,
-        backgroundColor: AppStyle.backgroundColor,
-      ),
-      body: Padding(
+         body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("Welcome!", style: AppStyle.mainTitle),
+            Text("Game completed!", style: AppStyle.mainTitle),
+            Text("Result: ${resultScore}/10", style: AppStyle.mainTitle,),
+                        Text("Tap to play again!", style: AppStyle.mainTitle,),
+
             Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -46,11 +44,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   backgroundColor: Colors.blue, // <-- Button color
                   foregroundColor: Colors.red, // <-- Splash color
                 ),
-              ),
+              )
             )
-          ],
-        ),
-      ),
+        ])
+         )
+    
     );
   }
 }
