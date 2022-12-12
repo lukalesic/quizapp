@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:quizapp/style/appstyle.dart';
 
-class PosterAnswerView extends StatelessWidget {
-  final int id;
-  final String title;
-  final String posterUrl;
+class AnswerOption extends StatelessWidget {
 
-  const PosterAnswerView(
-      {super.key,
-      required this.id,
-      required this.title,
-      required this.posterUrl});
+    final String Id;
+   // final VoidCallback nextQuestion;
+    final String movieTitle;
+    final String posterURL;
+    final bool correct;
+
+
+    const AnswerOption({super.key,
+     required this.Id,
+   //  required this.nextQuestion,
+     required this.movieTitle,
+     required this.posterURL,
+     required this.correct
+     });
+
 
   static RoundedRectangleBorder borderRadius =
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(8));
