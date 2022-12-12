@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quizapp/style/appstyle.dart';
-import 'package:quizapp/models/questions_model.dart';
 import 'package:quizapp/widgets/answer_option.dart';
-import 'package:quizapp/widgets/next_question_button.dart';
 import 'package:quizapp/widgets/question_widget.dart';
-import '../models/urls.dart';
 import '../models/questions.dart';
 
 class QuizScreen extends StatefulWidget {
@@ -57,20 +54,22 @@ class _QuizScreenState extends State<QuizScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: const <Widget>[
+                children: <Widget>[
                   Expanded(
-                      child: PosterAnswerView(
-                    id: 1,
-                    title: 'Movie 1',
-                    posterUrl:
+                      child: AnswerOption(
+                    Id: '1',
+                    movieTitle: 'Movie 1',
+                    posterURL:
                         'https://d3sourxycqfpzg.cloudfront.net/production/infos/posters/658032/small.jpg',
+                    correct: false,
                   )),
                   Expanded(
-                    child: PosterAnswerView(
-                      id: 1,
-                      title: 'Movie 1',
-                      posterUrl:
+                    child: AnswerOption(
+                      Id: '1',
+                      movieTitle: 'Movie 1',
+                      posterURL:
                           'https://d3sourxycqfpzg.cloudfront.net/production/infos/posters/658032/small.jpg',
+                      correct: false,
                     ),
                   ),
                 ],
@@ -81,21 +80,23 @@ class _QuizScreenState extends State<QuizScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: const <Widget>[
+                children: <Widget>[
                   Expanded(
-                    child: PosterAnswerView(
-                      id: 3,
-                      title: 'Movie 3',
-                      posterUrl:
+                    child: AnswerOption(
+                      Id: '3',
+                      movieTitle: 'Movie 3',
+                      posterURL:
                           'https://d3sourxycqfpzg.cloudfront.net/production/infos/posters/658032/small.jpg',
+                      correct: false,
                     ),
                   ),
                   Expanded(
-                    child: PosterAnswerView(
-                      id: 4,
-                      title: 'Movie 4',
-                      posterUrl:
+                    child: AnswerOption(
+                      Id: '4',
+                      movieTitle: 'Movie 4',
+                      posterURL:
                           'https://d3sourxycqfpzg.cloudfront.net/production/infos/posters/658032/small.jpg',
+                      correct: true,
                     ),
                   ),
                 ],

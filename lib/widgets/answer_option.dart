@@ -2,22 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:quizapp/style/appstyle.dart';
 
 class AnswerOption extends StatelessWidget {
+  final String Id;
 
-    final String Id;
-   // final VoidCallback nextQuestion;
-    final String movieTitle;
-    final String posterURL;
-    final bool correct;
+  // final VoidCallback nextQuestion;
+  final String movieTitle;
+  final String posterURL;
+  final bool correct;
 
-
-    const AnswerOption({super.key,
-     required this.Id,
-   //  required this.nextQuestion,
-     required this.movieTitle,
-     required this.posterURL,
-     required this.correct
-     });
-
+  const AnswerOption(
+      {super.key,
+      required this.Id,
+      //  required this.nextQuestion,
+      required this.movieTitle,
+      required this.posterURL,
+      required this.correct});
 
   static RoundedRectangleBorder borderRadius =
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(8));
@@ -40,12 +38,12 @@ class AnswerOption extends StatelessWidget {
                   child: Column(
                     children: [
                       Image.network(
-                        posterUrl,
+                        posterURL,
                         scale: 2,
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        title,
+                        movieTitle,
                         overflow: TextOverflow.ellipsis,
                         style: AppStyle.mainContent,
                       )
