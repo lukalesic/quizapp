@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:quizapp/screens/losescreen.dart';
+import 'package:quizapp/screens/winnerscreen.dart';
 import 'package:quizapp/style/appstyle.dart';
 import 'package:quizapp/models/questions_model.dart';
 import 'package:quizapp/widgets/answer_option.dart';
@@ -33,6 +35,9 @@ class _QuizScreenState extends State<QuizScreen> {
         correctAnswers++;
       }
       if (index == questions.length - 1) {
+        //end of questions
+        Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) => WinnerScreen(resultScore: correctAnswers,))));
         return;
       } else {
         index++;
@@ -53,6 +58,8 @@ class _QuizScreenState extends State<QuizScreen> {
           if(timer < 1){
             t.cancel();
             //here goes navigator for going to game over screen
+            Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) => LoseScreen(resultScore: correctAnswers))));
           } else {
             timer = timer - 1;
           }
