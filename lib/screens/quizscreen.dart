@@ -108,7 +108,7 @@ void dispose() {
               flex: 1,
               child: QuestionWidget(
                   indexAction: index,
-                  question: questions[index].title,
+                  question: questions[index].getQuestion(),
                   totalQuestions: questions.length),
             ),
             Expanded(
@@ -119,18 +119,18 @@ void dispose() {
                 children: <Widget>[
                   Expanded(
                       child: AnswerOption(
-                    Id: questions[index].answers[0].id,
-                    movieTitle: questions[index].answers[0].original_title,
-                    posterURL: questions[index].answers[0].photo,
-                    correct: questions[index].answers[0].is_answer,
+                    Id: questions[index].movies[0].id,
+                    movieTitle: questions[index].movies[0].title,
+                    posterURL: questions[index].movies[0].posterUrl,
+                    correct: questions[index].movies[0].isAnswer,
                     listener: this,
                   )),
                   Expanded(
                     child: AnswerOption(
-                      Id: questions[index].answers[1].id,
-                      movieTitle: questions[index].answers[1].original_title,
-                      posterURL: questions[index].answers[1].photo,
-                      correct: questions[index].answers[1].is_answer,
+                      Id: questions[index].movies[1].id,
+                      movieTitle: questions[index].movies[1].title,
+                      posterURL: questions[index].movies[1].posterUrl,
+                      correct: questions[index].movies[1].isAnswer,
                       listener: this,
                     ),
                   ),
@@ -145,19 +145,19 @@ void dispose() {
                 children: <Widget>[
                   Expanded(
                     child: AnswerOption(
-                      Id: questions[index].answers[2].id,
-                      movieTitle: questions[index].answers[2].original_title,
-                      posterURL: questions[index].answers[2].photo,
-                      correct: questions[index].answers[2].is_answer,
+                      Id: questions[index].movies[2].id,
+                      movieTitle: questions[index].movies[2].title,
+                      posterURL: questions[index].movies[2].posterUrl,
+                      correct: questions[index].movies[2].isAnswer,
                       listener: this,
                     ),
                   ),
                   Expanded(
                     child: AnswerOption(
-                      Id: questions[index].answers[3].id,
-                      movieTitle: questions[index].answers[3].original_title,
-                      posterURL: questions[index].answers[3].photo,
-                      correct: questions[index].answers[3].is_answer,
+                      Id: questions[index].movies[3].id,
+                      movieTitle: questions[index].movies[3].title,
+                      posterURL: questions[index].movies[3].posterUrl,
+                      correct: questions[index].movies[3].isAnswer,
                       listener: this,
                     ),
                   ),
