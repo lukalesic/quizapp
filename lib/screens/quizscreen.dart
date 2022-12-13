@@ -101,7 +101,7 @@ void dispose() {
             ),
             //Total score
             Text(
-              'Result score: $correctAnswers/10',
+              'Result score: $correctAnswers/${questions.length}',
               style: TextStyle(color: Colors.white),
             ),
             Expanded(
