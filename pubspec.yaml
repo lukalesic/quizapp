@@ -41,6 +41,7 @@ dependencies:
   cloud_firestore: ^4.1.0
   json_annotation: ^4.7.0
   page_transition: ^2.0.9
+  percent_indicator: ^4.2.2
 
 dev_dependencies:
   flutter_test:

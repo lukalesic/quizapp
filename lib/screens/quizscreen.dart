@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:quizapp/screens/losescreen.dart';
 import 'package:quizapp/screens/winnerscreen.dart';
 import 'package:quizapp/style/appstyle.dart';
@@ -29,16 +30,23 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
   void nextQuestion(bool value) {
     setState(() {
       if (value == true) {
-        if(timer + 3 >= 10){ timer = 10;}
-        else{timer = timer + 3;} 
+        if (timer + 3 >= 10) {
+          timer = 10;
+        } else {
+          timer = timer + 3;
+        }
         correctAnswers++;
       }
       if (index == questions.length - 1) {
-        //end of questions      
-     _timer.cancel();
+        //end of questions
+        _timer.cancel();
 
-        Navigator.push(context,
-                      MaterialPageRoute(builder: ((context) => WinnerScreen(resultScore: correctAnswers,))));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: ((context) => WinnerScreen(
+                      resultScore: correctAnswers,
+                    ))));
         return;
       } else {
         index++;
@@ -46,37 +54,37 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
     });
   }
 
-@override
-  void initState(){
+  @override
+  void initState() {
     timer = 10;
     startTimer();
     super.initState();
   }
 
-  void startTimer() async{
+  void startTimer() async {
     _timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
-
-        setState(() {
-          if(timer < 1){
-            t.cancel();
-            //here goes navigator for going to game over screen
-            Navigator.push(context,
-                      MaterialPageRoute(builder: ((context) => LoseScreen(resultScore: correctAnswers))));
-          } else {
-            timer = timer - 1;
-          }
-          timerDisplay = timer.toString();
-
-        });
-
-     });
+      setState(() {
+        if (timer < 1) {
+          t.cancel();
+          //here goes navigator for going to game over screen
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: ((context) =>
+                      LoseScreen(resultScore: correctAnswers))));
+        } else {
+          timer = timer - 1;
+        }
+        timerDisplay = timer.toString();
+      });
+    });
   }
 
-@override
-void dispose() {
-  _timer.cancel();
-  super.dispose();
-}
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,15 +103,32 @@ void dispose() {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             //Timer
-            Text(
-              '$timerDisplay seconds left',
-              style: TextStyle(color: Colors.white),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                alignment: Alignment.topRight,
+                child: CircularPercentIndicator(
+                  radius: 30.0,
+                  backgroundColor: Colors.white,
+                  progressColor: Colors.blue,
+                  percent: timer / 10,
+                  animation: true,
+                  animateFromLastPercent: true,
+                  center: Text(
+                    '$timerDisplay',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
             ),
-            //Total score
-            Text(
-              'Result score: $correctAnswers/10',
-              style: TextStyle(color: Colors.white),
+
+            Center(
+              child: Text(
+                'Result score: $correctAnswers/10',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
+
             Expanded(
               flex: 1,
               child: QuestionWidget(
