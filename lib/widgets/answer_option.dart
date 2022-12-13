@@ -7,6 +7,7 @@ class AnswerOption extends StatefulWidget {
   final String posterURL;
   final bool correct;
   final OnAnsweredListener? listener;
+  final bool clickable;
 
   const AnswerOption(
       {super.key,
@@ -14,7 +15,8 @@ class AnswerOption extends StatefulWidget {
       required this.movieTitle,
       required this.posterURL,
       required this.correct,
-      required this.listener});
+      required this.listener,
+      required this.clickable});
 
   @override
   State<StatefulWidget> createState() => _AnswerOptionState();
@@ -34,13 +36,17 @@ class _AnswerOptionState extends State<AnswerOption> {
         color: getAnswerColor(),
         child: InkWell(
             onTap: () {
-              setState(() {
-                clicked = true;
-              });
-              Future.delayed(const Duration(seconds: 1), () {
-                clicked = false;
+              if (widget.clickable) {
+                setState(() {
+                  clicked = true;
+                });
+                Future.delayed(const Duration(seconds: 1), () {
+                  setState(() {
+                    clicked = false;
+                  });
+                });
                 widget.listener?.onQuestionAnswered(widget.correct);
-              });
+              }
             },
             customBorder: borderRadius,
             child: Container(
