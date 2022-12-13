@@ -26,16 +26,23 @@ class _QuizScreenState extends State<QuizScreen> {
   int correctAnswers = 0;
   int timer = 10;
   String timerDisplay = "10";
+  late Timer _timer;
 
   void nextQuestion(bool value) {
     setState(() {
-      if(timer + 3 >= 10){ timer = 10;}
-      else{timer = timer + 3;}     
+      
+          
       if (value == true) {
+        if(timer + 3 >= 10){ timer = 10;}
+        else{timer = timer + 3;} 
         correctAnswers++;
       }
       if (index == questions.length - 1) {
         //end of questions
+        //cancel timer here
+      
+     _timer.cancel();
+
         Navigator.push(context,
                       MaterialPageRoute(builder: ((context) => WinnerScreen(resultScore: correctAnswers,))));
         return;
@@ -47,12 +54,13 @@ class _QuizScreenState extends State<QuizScreen> {
 
 @override
   void initState(){
+    timer = 10;
     startTimer();
     super.initState();
   }
 
   void startTimer() async{
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
+    _timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
 
         setState(() {
           if(timer < 1){
@@ -70,6 +78,11 @@ class _QuizScreenState extends State<QuizScreen> {
      });
   }
 
+@override
+void dispose() {
+  _timer.cancel();
+  super.dispose();
+}
 
   @override
   Widget build(BuildContext context) {
@@ -107,15 +120,20 @@ class _QuizScreenState extends State<QuizScreen> {
                 children: [
                   TableRow(children: [
                     for (int i = 0; i < questions[index].answers.length; i++)
+                    
                       GestureDetector(
                           onTap: () =>
+                          //if final quetion tapped, stop the timer, add parametar for "last"
+                          
                               nextQuestion(questions[index].answers[i].correct),
+                              
                           child: AnswerOption(
                               Id: questions[index].answers[i].Id,
                               movieTitle:
                                   questions[index].answers[i].movieTitle,
                               posterURL: questions[index].answers[i].posterURL,
-                              correct: questions[index].answers[i].correct))
+                              correct: questions[index].answers[i].correct)),
+                              
                   ])
                 ],
               )
