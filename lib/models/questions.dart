@@ -1,28 +1,68 @@
 //base of questions
+import 'package:quizapp/models/answer.dart';
+
 import '../models/questions_model.dart';
-import '../widgets/answer_option.dart';
 import '../models/urls.dart';
 
-   List<Question> questions = [
-        
-    Question(id: '1', title: 'Question 1', answers: [
-      AnswerOption(
-          Id: '3', movieTitle: 'title 1', posterURL: URLs[0], correct: true),
-      AnswerOption(
-          Id: '2', movieTitle: 'title2', posterURL: URLs[0], correct: false),
-        AnswerOption(
-          Id: '3', movieTitle: 'title3', posterURL: URLs[0], correct: false)
-    ], 
-    ),
-
-
-     Question(id: '2', title: 'Question 2', answers: [
-      AnswerOption(
-          Id: '3', movieTitle: 'title 1', posterURL: URLs[0], correct: true),
-      AnswerOption(
-          Id: '2', movieTitle: 'title2', posterURL: URLs[0], correct: false),
-        AnswerOption(
-          Id: '3', movieTitle: 'title3', posterURL: URLs[0], correct: false)
-    ], 
-    ),
-  ];
+List<Question> questions = [
+  Question(
+    id: '1',
+    title: 'Question 1',
+    answers: [
+      Answer(
+          id: 0,
+          original_title: 'title1',
+          imdb_rating: '5',
+          is_answer: true,
+          photo: URLs[0]),
+      Answer(
+          id: 1,
+          original_title: 'title2',
+          imdb_rating: '5',
+          is_answer: false,
+          photo: URLs[0]),
+      Answer(
+          id: 2,
+          original_title: 'title3',
+          imdb_rating: '5',
+          is_answer: false,
+          photo: URLs[0]),
+      Answer(
+          id: 3,
+          original_title: 'title4',
+          imdb_rating: '5',
+          is_answer: false,
+          photo: URLs[0])
+    ],
+  ),
+  Question(
+    id: '2',
+    title: 'Question 2',
+    answers: [
+      Answer(
+          id: 0,
+          original_title: 'title1',
+          imdb_rating: '5',
+          is_answer: true,
+          photo: URLs[0]),
+      Answer(
+          id: 1,
+          original_title: 'title2',
+          imdb_rating: '5',
+          is_answer: false,
+          photo: URLs[0]),
+      Answer(
+          id: 2,
+          original_title: 'title3',
+          imdb_rating: '5',
+          is_answer: false,
+          photo: URLs[0]),
+      Answer(
+          id: 3,
+          original_title: 'title4',
+          imdb_rating: '5',
+          is_answer: false,
+          photo: URLs[0])
+    ],
+  ),
+];

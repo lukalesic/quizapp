@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppStyle {
-  static Color backgroundColor = Color(0xFF171819);
-  static Color mainColor = Color(0xFF000633);
+  static Color backgroundColor = Color(0xFF1A1C1E);
   static Color accentColor = Color(0xFF039CFD);
   static Color textColor = Color(0xFFCACACA);
   static Color borderColor = Color(0x70CACACA);
+  static Color cardColor = Color(0xFF292b2e);
 
 //colors for correct and incorrect answers
   static Color correct = Color(0xFF32AB58);
