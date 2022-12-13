@@ -125,7 +125,7 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
 
             Center(
               child: Text(
-                'Result score: $correctAnswers/${questions.length',
+                'Result score: $correctAnswers/${questions.length}',
                 style: TextStyle(color: Colors.white),
               ),
 
