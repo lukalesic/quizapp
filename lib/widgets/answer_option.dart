@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quizapp/style/appstyle.dart';
 
-class AnswerOption extends StatelessWidget {
+class AnswerOption extends StatefulWidget {
   final int Id;
   final String movieTitle;
   final String posterURL;
@@ -16,6 +16,13 @@ class AnswerOption extends StatelessWidget {
       required this.correct,
       required this.listener});
 
+  @override
+  State<StatefulWidget> createState() => _AnswerOptionState();
+}
+
+class _AnswerOptionState extends State<AnswerOption> {
+  bool clicked = false;
+
   static RoundedRectangleBorder borderRadius =
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(8));
 
@@ -24,10 +31,16 @@ class AnswerOption extends StatelessWidget {
     return Card(
         shape: borderRadius,
         borderOnForeground: true,
-        color: AppStyle.cardColor,
+        color: getAnswerColor(),
         child: InkWell(
             onTap: () {
-              listener?.onQuestionAnswered(correct);
+              setState(() {
+                clicked = true;
+              });
+              Future.delayed(const Duration(seconds: 1), () {
+                clicked = false;
+                widget.listener?.onQuestionAnswered(widget.correct);
+              });
             },
             customBorder: borderRadius,
             child: Container(
@@ -37,18 +50,30 @@ class AnswerOption extends StatelessWidget {
                   child: Column(
                     children: [
                       Image.network(
-                        posterURL,
+                        widget.posterURL,
                         scale: 2,
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        movieTitle,
+                        widget.movieTitle,
                         overflow: TextOverflow.ellipsis,
                         style: AppStyle.mainContent,
                       )
                     ],
                   ),
                 ))));
+  }
+
+  Color getAnswerColor() {
+    if (clicked) {
+      if (widget.correct) {
+        return Colors.green;
+      } else {
+        return Colors.red;
+      }
+    } else {
+      return AppStyle.cardColor;
+    }
   }
 }
 
