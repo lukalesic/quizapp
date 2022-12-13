@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizapp/models/questions.dart';
 import 'package:quizapp/screens/homescreen.dart';
 import 'package:quizapp/screens/quizscreen.dart';
 
@@ -28,7 +29,7 @@ class _WinnerScreenState extends State<WinnerScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text("Game completed!", style: AppStyle.mainTitle),
-            Text("Result: ${resultScore}/10", style: AppStyle.mainTitle,),
+            Text("Result: ${resultScore}/${questions.length}", style: AppStyle.mainTitle,),
                         Text("Tap to play again!", style: AppStyle.mainTitle,),
 
             Center(
@@ -48,7 +49,7 @@ class _WinnerScreenState extends State<WinnerScreen> {
             )
         ])
          )
-    
+
     );
   }
 }
