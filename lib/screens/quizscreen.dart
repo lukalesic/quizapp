@@ -18,7 +18,7 @@ class QuizScreen extends StatefulWidget {
   State<QuizScreen> createState() => _QuizScreenState();
 }
 
-class _QuizScreenState extends State<QuizScreen> {
+class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
   int index = 0;
   bool isPressed = false;
   int correctAnswers = 0;
@@ -116,16 +116,20 @@ class _QuizScreenState extends State<QuizScreen> {
                 children: <Widget>[
                   Expanded(
                       child: AnswerOption(
-                          Id: questions[index].answers[0].Id,
-                          movieTitle: questions[index].answers[0].movieTitle,
-                          posterURL: questions[index].answers[0].posterURL,
-                          correct: questions[index].answers[0].correct)),
+                    Id: questions[index].answers[0].id,
+                    movieTitle: questions[index].answers[0].original_title,
+                    posterURL: questions[index].answers[0].photo,
+                    correct: questions[index].answers[0].is_answer,
+                    listener: this,
+                  )),
                   Expanded(
                     child: AnswerOption(
-                        Id: questions[index].answers[1].Id,
-                        movieTitle: questions[index].answers[1].movieTitle,
-                        posterURL: questions[index].answers[1].posterURL,
-                        correct: questions[index].answers[1].correct),
+                      Id: questions[index].answers[1].id,
+                      movieTitle: questions[index].answers[1].original_title,
+                      posterURL: questions[index].answers[1].photo,
+                      correct: questions[index].answers[1].is_answer,
+                      listener: this,
+                    ),
                   ),
                 ],
               ),
@@ -138,17 +142,20 @@ class _QuizScreenState extends State<QuizScreen> {
                 children: <Widget>[
                   Expanded(
                     child: AnswerOption(
-                        Id: questions[index].answers[2].Id,
-                        movieTitle: questions[index].answers[2].movieTitle,
-                        posterURL: questions[index].answers[2].posterURL,
-                        correct: questions[index].answers[2].correct),
+                      Id: questions[index].answers[2].id,
+                      movieTitle: questions[index].answers[2].original_title,
+                      posterURL: questions[index].answers[2].photo,
+                      correct: questions[index].answers[2].is_answer,
+                      listener: this,
+                    ),
                   ),
                   Expanded(
                     child: AnswerOption(
-                      Id: questions[index].answers[3].Id,
-                      movieTitle: questions[index].answers[3].movieTitle,
-                      posterURL: questions[index].answers[3].posterURL,
-                      correct: questions[index].answers[3].correct,
+                      Id: questions[index].answers[3].id,
+                      movieTitle: questions[index].answers[3].original_title,
+                      posterURL: questions[index].answers[3].photo,
+                      correct: questions[index].answers[3].is_answer,
+                      listener: this,
                     ),
                   ),
                 ],
@@ -158,5 +165,10 @@ class _QuizScreenState extends State<QuizScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void onQuestionAnswered(bool isCorrect) {
+    nextQuestion(isCorrect);
   }
 }

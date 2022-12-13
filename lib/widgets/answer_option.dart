@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:quizapp/style/appstyle.dart';
 
 class AnswerOption extends StatelessWidget {
+  final int Id;
+  final String movieTitle;
+  final String posterURL;
+  final bool correct;
+  final OnAnsweredListener? listener;
 
-    final String Id; 
-    final String movieTitle;
-    final String posterURL;
-    final bool correct;
-    
-
-    const AnswerOption({super.key,
-     required this.Id,
-     required this.movieTitle,
-     required this.posterURL,
-     required this.correct
-     });
+  const AnswerOption(
+      {super.key,
+      required this.Id,
+      required this.movieTitle,
+      required this.posterURL,
+      required this.correct,
+      required this.listener});
 
   static RoundedRectangleBorder borderRadius =
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(8));
@@ -27,7 +27,7 @@ class AnswerOption extends StatelessWidget {
         color: AppStyle.cardColor,
         child: InkWell(
             onTap: () {
-              // handle answering a question
+              listener?.onQuestionAnswered(correct);
             },
             customBorder: borderRadius,
             child: Container(
@@ -50,4 +50,8 @@ class AnswerOption extends StatelessWidget {
                   ),
                 ))));
   }
+}
+
+abstract class OnAnsweredListener {
+  void onQuestionAnswered(bool isCorrect);
 }
