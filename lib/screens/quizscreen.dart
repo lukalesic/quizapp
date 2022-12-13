@@ -20,6 +20,7 @@ class QuizScreen extends StatefulWidget {
 }
 
 class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
+  bool clickable = true;
   int index = 0;
   bool isPressed = false;
   int correctAnswers = 0;
@@ -124,9 +125,10 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
 
             Center(
               child: Text(
-                'Result score: $correctAnswers/10',
+                'Result score: $correctAnswers/${questions.length',
                 style: TextStyle(color: Colors.white),
               ),
+
             ),
 
             Expanded(
@@ -149,6 +151,7 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
                     posterURL: questions[index].movies[0].posterUrl,
                     correct: questions[index].movies[0].isAnswer,
                     listener: this,
+                    clickable: clickable,
                   )),
                   Expanded(
                     child: AnswerOption(
@@ -157,6 +160,7 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
                       posterURL: questions[index].movies[1].posterUrl,
                       correct: questions[index].movies[1].isAnswer,
                       listener: this,
+                      clickable: clickable,
                     ),
                   ),
                 ],
@@ -175,6 +179,7 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
                       posterURL: questions[index].movies[2].posterUrl,
                       correct: questions[index].movies[2].isAnswer,
                       listener: this,
+                      clickable: clickable,
                     ),
                   ),
                   Expanded(
@@ -184,6 +189,7 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
                       posterURL: questions[index].movies[3].posterUrl,
                       correct: questions[index].movies[3].isAnswer,
                       listener: this,
+                      clickable: clickable,
                     ),
                   ),
                 ],
@@ -197,6 +203,12 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
 
   @override
   void onQuestionAnswered(bool isCorrect) {
-    nextQuestion(isCorrect);
+    setState(() {
+      clickable = false;
+    });
+    Future.delayed(const Duration(seconds: 1), () {
+      nextQuestion(isCorrect);
+      clickable = true;
+    });
   }
 }
