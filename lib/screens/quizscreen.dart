@@ -24,25 +24,21 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
   int correctAnswers = 0;
   int timer = 10;
   String timerDisplay = "10";
+  late Timer _timer;
 
   void nextQuestion(bool value) {
     setState(() {
-      if (timer + 3 >= 10) {
-        timer = 10;
-      } else {
-        timer = timer + 3;
-      }
       if (value == true) {
+        if(timer + 3 >= 10){ timer = 10;}
+        else{timer = timer + 3;} 
         correctAnswers++;
       }
       if (index == questions.length - 1) {
-        //end of questions
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: ((context) => WinnerScreen(
-                      resultScore: correctAnswers,
-                    ))));
+        //end of questions      
+     _timer.cancel();
+
+        Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) => WinnerScreen(resultScore: correctAnswers,))));
         return;
       } else {
         index++;
@@ -50,30 +46,37 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
     });
   }
 
-  @override
-  void initState() {
+@override
+  void initState(){
+    timer = 10;
     startTimer();
     super.initState();
   }
 
-  void startTimer() async {
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
-      setState(() {
-        if (timer < 1) {
-          t.cancel();
-          //here goes navigator for going to game over screen
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: ((context) =>
-                      LoseScreen(resultScore: correctAnswers))));
-        } else {
-          timer = timer - 1;
-        }
-        timerDisplay = timer.toString();
-      });
-    });
+  void startTimer() async{
+    _timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+
+        setState(() {
+          if(timer < 1){
+            t.cancel();
+            //here goes navigator for going to game over screen
+            Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) => LoseScreen(resultScore: correctAnswers))));
+          } else {
+            timer = timer - 1;
+          }
+          timerDisplay = timer.toString();
+
+        });
+
+     });
   }
+
+@override
+void dispose() {
+  _timer.cancel();
+  super.dispose();
+}
 
   @override
   Widget build(BuildContext context) {
