@@ -1,14 +1,26 @@
-class Answer {
-  final int id;
-  final String original_title;
-  final String imdb_rating;
-  final bool is_answer;
-  final String photo;
+import 'package:json_annotation/json_annotation.dart';
 
-  Answer(
+@JsonSerializable()
+class Movie {
+  @JsonKey(name: "id")
+  final int id;
+
+  @JsonKey(name: "original_title")
+  final String title;
+
+  @JsonKey(name: "imdb_rating")
+  final String imdbRating;
+
+  @JsonKey(name: "is_answer")
+  final bool isAnswer;
+
+  @JsonKey(name: "photo")
+  final String posterUrl;
+
+  Movie(
       {required this.id,
-      required this.original_title,
-      required this.imdb_rating,
-      required this.is_answer,
-      required this.photo});
+      required this.title,
+      required this.imdbRating,
+      required this.isAnswer,
+      required this.posterUrl});
 }
