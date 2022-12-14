@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:quizapp/screens/losescreen.dart';
 import 'package:quizapp/screens/winnerscreen.dart';
 import 'package:quizapp/style/appstyle.dart';
@@ -95,6 +96,7 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
         leading: const BackButton(
           color: Colors.white,
         ),
+        
         backgroundColor: AppStyle.accentColor,
       ),
       backgroundColor: AppStyle.backgroundColor,
@@ -110,6 +112,7 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
                 alignment: Alignment.topRight,
                 child: CircularPercentIndicator(
                   radius: 30.0,
+                  circularStrokeCap: CircularStrokeCap.round,
                   backgroundColor: Colors.white,
                   progressColor: Colors.blue,
                   percent: timer / 10,
@@ -129,6 +132,19 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
                 style: TextStyle(color: Colors.white),
               ),
 
+            ),
+
+            SizedBox(
+              width: 200,
+              child: LinearPercentIndicator(
+                animation: true,
+                animationDuration: 350,
+                animateFromLastPercent: true,
+                percent: index/questions.length,
+                progressColor: Colors.blue,
+                backgroundColor: Colors.white,
+                
+              ),
             ),
 
             Expanded(
