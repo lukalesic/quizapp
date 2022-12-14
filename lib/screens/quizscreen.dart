@@ -94,25 +94,26 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0.0,
-          leading: BackButton(
-            onPressed: () {
-              Navigator.of(context).popUntil((route) => route.isFirst);
-            },
-            color: Colors.white,
-          ),
-          backgroundColor: AppStyle.accentColor,
+      appBar: AppBar(
+        elevation: 0.0,
+        leading: BackButton(
+          onPressed: () {
+            Navigator.of(context).popUntil((route) => route.isFirst);
+          },
+          color: Colors.white,
         ),
-        backgroundColor: AppStyle.backgroundColor,
-        body: Container(
-            padding: const EdgeInsets.all(8.0),
-            child: SafeArea(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                  //Timer
+        backgroundColor: AppStyle.accentColor,
+      ),
+      backgroundColor: AppStyle.backgroundColor,
+      body: Container(
+        padding: const EdgeInsets.all(8.0),
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
@@ -132,96 +133,99 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
                       ),
                     ),
                   ),
-
                   Center(
                     child: Text(
-                      'Result score: $correctAnswers/${questions.length}',
+                      'Correct answers: $correctAnswers/${questions.length}',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
+                ],
+              ),
+              //Timer
 
-                  SizedBox(
-                    width: 200,
-                    child: LinearPercentIndicator(
-                      animation: true,
-                      animationDuration: 350,
-                      animateFromLastPercent: true,
-                      percent: index / questions.length,
-                      progressColor: Colors.blue,
-                      backgroundColor: Colors.white,
+              Expanded(
+                flex: 1,
+                child: QuestionWidget(
+                    indexAction: index,
+                    question: questions[index].getQuestion(),
+                    totalQuestions: questions.length),
+              ),
+              Expanded(
+                flex: 2,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Expanded(
+                        child: AnswerOption(
+                      Id: questions[index].movies[0].id,
+                      movieTitle: questions[index].movies[0].title,
+                      posterURL: questions[index].movies[0].posterUrl,
+                      correct: questions[index].movies[0].isAnswer,
+                      listener: this,
+                      clickable: clickable,
+                    )),
+                    Expanded(
+                      child: AnswerOption(
+                        Id: questions[index].movies[1].id,
+                        movieTitle: questions[index].movies[1].title,
+                        posterURL: questions[index].movies[1].posterUrl,
+                        correct: questions[index].movies[1].isAnswer,
+                        listener: this,
+                        clickable: clickable,
+                      ),
                     ),
-                  ),
-
-                  Expanded(
-                    flex: 1,
-                    child: QuestionWidget(
-                        indexAction: index,
-                        question: questions[index].getQuestion(),
-                        totalQuestions: questions.length),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Expanded(
-                            child: AnswerOption(
-                          Id: questions[index].movies[0].id,
-                          movieTitle: questions[index].movies[0].title,
-                          posterURL: questions[index].movies[0].posterUrl,
-                          correct: questions[index].movies[0].isAnswer,
-                          listener: this,
-                          clickable: clickable,
-                        )),
-                        Expanded(
-                          child: AnswerOption(
-                            Id: questions[index].movies[1].id,
-                            movieTitle: questions[index].movies[1].title,
-                            posterURL: questions[index].movies[1].posterUrl,
-                            correct: questions[index].movies[1].isAnswer,
-                            listener: this,
-                            clickable: clickable,
-                          ),
-                        ),
-                      ],
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Expanded(
+                      child: AnswerOption(
+                        Id: questions[index].movies[2].id,
+                        movieTitle: questions[index].movies[2].title,
+                        posterURL: questions[index].movies[2].posterUrl,
+                        correct: questions[index].movies[2].isAnswer,
+                        listener: this,
+                        clickable: clickable,
+                      ),
                     ),
-                  ),
-                        Expanded(
-                          flex: 2,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: <Widget>[
-                              Expanded(
-                                child: AnswerOption(
-                                  Id: questions[index].movies[2].id,
-                                  movieTitle: questions[index].movies[2].title,
-                                  posterURL:
-                                      questions[index].movies[2].posterUrl,
-                                  correct: questions[index].movies[2].isAnswer,
-                                  listener: this,
-                                  clickable: clickable,
-                                ),
-                              ),
-                              Expanded(
-                                child: AnswerOption(
-                                  Id: questions[index].movies[3].id,
-                                  movieTitle: questions[index].movies[3].title,
-                                  posterURL:
-                                      questions[index].movies[3].posterUrl,
-                                  correct: questions[index].movies[3].isAnswer,
-                                  listener: this,
-                                  clickable: clickable,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                    Expanded(
+                      child: AnswerOption(
+                        Id: questions[index].movies[3].id,
+                        movieTitle: questions[index].movies[3].title,
+                        posterURL: questions[index].movies[3].posterUrl,
+                        correct: questions[index].movies[3].isAnswer,
+                        listener: this,
+                        clickable: clickable,
+                      ),
                     ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 2.0),
+                child: SizedBox(
+                  width: 200,
+                  child: LinearPercentIndicator(
+                    animation: true,
+                    animationDuration: 350,
+                    animateFromLastPercent: true,
+                    percent: index / questions.length,
+                    progressColor: Colors.blue,
+                    backgroundColor: Colors.grey,
                   ),
-                ));
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   @override
