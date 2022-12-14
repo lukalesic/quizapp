@@ -63,7 +63,7 @@ class _AnswerOptionState extends State<AnswerOption> {
                       Text(
                         widget.movieTitle,
                         overflow: TextOverflow.ellipsis,
-                        style: AppStyle.mainContent,
+                        style: AppStyle.posterTitle,
                       )
                     ],
                   ),

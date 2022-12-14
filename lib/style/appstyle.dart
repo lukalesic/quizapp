@@ -28,4 +28,7 @@ class AppStyle {
 
   static TextStyle mainContent = GoogleFonts.nunito(
       fontSize: 16, fontWeight: FontWeight.normal, color: textColor);
+
+  static TextStyle posterTitle = GoogleFonts.nunito(
+      fontSize: 18, fontWeight: FontWeight.normal, color: textColor);
 }

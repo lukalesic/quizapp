@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:quizapp/screens/homescreen.dart';
 import 'package:quizapp/screens/losescreen.dart';
 import 'package:quizapp/screens/winnerscreen.dart';
 import 'package:quizapp/style/appstyle.dart';
@@ -44,7 +45,8 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: ((context) => WinnerScreen(
+                builder: ((context) =>
+                    WinnerScreen(
                       resultScore: correctAnswers,
                     ))));
         return;
@@ -89,97 +91,102 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        leading: const BackButton(
-          color: Colors.white,
+        appBar: AppBar(
+          elevation: 0.0,
+          leading: BackButton(
+            onPressed: () {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            },
+            color: Colors.white,
+          ),
+          backgroundColor: AppStyle.accentColor,
         ),
-        backgroundColor: AppStyle.accentColor,
-      ),
-      backgroundColor: AppStyle.backgroundColor,
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            //Timer
-            Text(
-              '$timerDisplay seconds left',
-              style: TextStyle(color: Colors.white),
-            ),
-            //Total score
-            Text(
-              'Result score: $correctAnswers/${questions.length}',
-              style: TextStyle(color: Colors.white),
-            ),
-            Expanded(
-              flex: 1,
-              child: QuestionWidget(
-                  indexAction: index,
-                  question: questions[index].getQuestion(),
-                  totalQuestions: questions.length),
-            ),
-            Expanded(
-              flex: 2,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Expanded(
-                      child: AnswerOption(
-                    Id: questions[index].movies[0].id,
-                    movieTitle: questions[index].movies[0].title,
-                    posterURL: questions[index].movies[0].posterUrl,
-                    correct: questions[index].movies[0].isAnswer,
-                    listener: this,
-                    clickable: clickable,
-                  )),
-                  Expanded(
-                    child: AnswerOption(
-                      Id: questions[index].movies[1].id,
-                      movieTitle: questions[index].movies[1].title,
-                      posterURL: questions[index].movies[1].posterUrl,
-                      correct: questions[index].movies[1].isAnswer,
-                      listener: this,
-                      clickable: clickable,
-                    ),
+        backgroundColor: AppStyle.backgroundColor,
+        body: Container(
+          padding: const EdgeInsets.all(8.0),
+          child: SafeArea(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                //Timer
+                Text(
+                  '$timerDisplay seconds left',
+                  style: TextStyle(color: Colors.white),
+                ),
+                //Total score
+                Text(
+                  'Result score: $correctAnswers/${questions.length}',
+                  style: TextStyle(color: Colors.white),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: QuestionWidget(
+                      indexAction: index,
+                      question: questions[index].getQuestion(),
+                      totalQuestions: questions.length),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Expanded(
+                          child: AnswerOption(
+                            Id: questions[index].movies[0].id,
+                            movieTitle: questions[index].movies[0].title,
+                            posterURL: questions[index].movies[0].posterUrl,
+                            correct: questions[index].movies[0].isAnswer,
+                            listener: this,
+                            clickable: clickable,
+                          )),
+                      Expanded(
+                        child: AnswerOption(
+                          Id: questions[index].movies[1].id,
+                          movieTitle: questions[index].movies[1].title,
+                          posterURL: questions[index].movies[1].posterUrl,
+                          correct: questions[index].movies[1].isAnswer,
+                          listener: this,
+                          clickable: clickable,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Expanded(
-                    child: AnswerOption(
-                      Id: questions[index].movies[2].id,
-                      movieTitle: questions[index].movies[2].title,
-                      posterURL: questions[index].movies[2].posterUrl,
-                      correct: questions[index].movies[2].isAnswer,
-                      listener: this,
-                      clickable: clickable,
-                    ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Expanded(
+                        child: AnswerOption(
+                          Id: questions[index].movies[2].id,
+                          movieTitle: questions[index].movies[2].title,
+                          posterURL: questions[index].movies[2].posterUrl,
+                          correct: questions[index].movies[2].isAnswer,
+                          listener: this,
+                          clickable: clickable,
+                        ),
+                      ),
+                      Expanded(
+                        child: AnswerOption(
+                          Id: questions[index].movies[3].id,
+                          movieTitle: questions[index].movies[3].title,
+                          posterURL: questions[index].movies[3].posterUrl,
+                          correct: questions[index].movies[3].isAnswer,
+                          listener: this,
+                          clickable: clickable,
+                        ),
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: AnswerOption(
-                      Id: questions[index].movies[3].id,
-                      movieTitle: questions[index].movies[3].title,
-                      posterURL: questions[index].movies[3].posterUrl,
-                      correct: questions[index].movies[3].isAnswer,
-                      listener: this,
-                      clickable: clickable,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 
   @override
