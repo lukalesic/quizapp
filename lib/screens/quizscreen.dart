@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:quizapp/screens/homescreen.dart';
 import 'package:quizapp/screens/losescreen.dart';
 import 'package:quizapp/screens/winnerscreen.dart';
 import 'package:quizapp/style/appstyle.dart';
@@ -44,7 +45,8 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: ((context) => WinnerScreen(
+                builder: ((context) =>
+                    WinnerScreen(
                       resultScore: correctAnswers,
                     ))));
         return;
@@ -91,7 +93,10 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
     return Scaffold(
         appBar: AppBar(
           elevation: 0.0,
-          leading: const BackButton(
+          leading: BackButton(
+            onPressed: () {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            },
             color: Colors.white,
           ),
           backgroundColor: AppStyle.accentColor,
@@ -129,13 +134,13 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
                     children: <Widget>[
                       Expanded(
                           child: AnswerOption(
-                        Id: questions[index].movies[0].id,
-                        movieTitle: questions[index].movies[0].title,
-                        posterURL: questions[index].movies[0].posterUrl,
-                        correct: questions[index].movies[0].isAnswer,
-                        listener: this,
-                        clickable: clickable,
-                      )),
+                            Id: questions[index].movies[0].id,
+                            movieTitle: questions[index].movies[0].title,
+                            posterURL: questions[index].movies[0].posterUrl,
+                            correct: questions[index].movies[0].isAnswer,
+                            listener: this,
+                            clickable: clickable,
+                          )),
                       Expanded(
                         child: AnswerOption(
                           Id: questions[index].movies[1].id,
