@@ -4,6 +4,7 @@ import 'package:quizapp/screens/quizscreen.dart';
 import 'package:quizapp/widgets/quiz_card.dart';
 import '../models/questions_model.dart';
 import '../style/appstyle.dart';
+
 //import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -32,7 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("Welcome!", style: AppStyle.mainTitle),
+            Text("Test your knowledge!", style: AppStyle.mainTitle),
+            SizedBox(height: 16),
             Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -41,11 +43,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 child: Icon(Icons.play_arrow_rounded, color: Colors.white),
                 style: ElevatedButton.styleFrom(
-                  shape: CircleBorder(),
-                  padding: EdgeInsets.all(20),
-                  backgroundColor: Colors.blue, // <-- Button color
-                  foregroundColor: Colors.red, // <-- Splash color
-                ),
+                    shape: CircleBorder(),
+                    padding: EdgeInsets.all(20),
+                    backgroundColor: Colors.blue // <-- Button color
+                    ),
               ),
             )
           ],

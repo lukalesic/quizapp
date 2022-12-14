@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:quizapp/screens/homescreen.dart';
 import 'package:quizapp/screens/losescreen.dart';
 import 'package:quizapp/screens/winnerscreen.dart';
 import 'package:quizapp/style/appstyle.dart';
@@ -43,12 +44,13 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
         //end of questions
         _timer.cancel();
 
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: ((context) => WinnerScreen(
-                      resultScore: correctAnswers,
-                    ))));
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (BuildContext context) => WinnerScreen(
+                    resultScore: correctAnswers,
+                  )),
+          (Route<dynamic> route) => route.isFirst,
+        );
         return;
       } else {
         index++;
@@ -69,11 +71,12 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
         if (timer < 1) {
           t.cancel();
           //here goes navigator for going to game over screen
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: ((context) =>
-                      LoseScreen(resultScore: correctAnswers))));
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    LoseScreen(resultScore: correctAnswers)),
+            (Route<dynamic> route) => route.isFirst,
+          );
         } else {
           timer = timer - 1;
         }
@@ -91,10 +94,15 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        leading: const BackButton(
-          color: Colors.white,
+        appBar: AppBar(
+          elevation: 0.0,
+          leading: BackButton(
+            onPressed: () {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            },
+            color: Colors.white,
+          ),
+          backgroundColor: AppStyle.accentColor,
         ),
         
         backgroundColor: AppStyle.accentColor,
@@ -179,42 +187,40 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
                       clickable: clickable,
                     ),
                   ),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Expanded(
-                    child: AnswerOption(
-                      Id: questions[index].movies[2].id,
-                      movieTitle: questions[index].movies[2].title,
-                      posterURL: questions[index].movies[2].posterUrl,
-                      correct: questions[index].movies[2].isAnswer,
-                      listener: this,
-                      clickable: clickable,
-                    ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Expanded(
+                        child: AnswerOption(
+                          Id: questions[index].movies[2].id,
+                          movieTitle: questions[index].movies[2].title,
+                          posterURL: questions[index].movies[2].posterUrl,
+                          correct: questions[index].movies[2].isAnswer,
+                          listener: this,
+                          clickable: clickable,
+                        ),
+                      ),
+                      Expanded(
+                        child: AnswerOption(
+                          Id: questions[index].movies[3].id,
+                          movieTitle: questions[index].movies[3].title,
+                          posterURL: questions[index].movies[3].posterUrl,
+                          correct: questions[index].movies[3].isAnswer,
+                          listener: this,
+                          clickable: clickable,
+                        ),
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: AnswerOption(
-                      Id: questions[index].movies[3].id,
-                      movieTitle: questions[index].movies[3].title,
-                      posterURL: questions[index].movies[3].posterUrl,
-                      correct: questions[index].movies[3].isAnswer,
-                      listener: this,
-                      clickable: clickable,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 
   @override
