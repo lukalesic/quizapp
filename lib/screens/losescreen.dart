@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quizapp/screens/quizscreen.dart';
+import 'package:quizapp/models/questions.dart';
 
 import '../style/appstyle.dart';
 
@@ -27,7 +28,7 @@ class __LoseScreenStateState extends State<LoseScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text("Timer expired!", style: AppStyle.mainTitle),
-            Text("Result: ${resultScore}/10", style: AppStyle.mainTitle,),
+            Text("Result: ${resultScore}/${questions.length}", style: AppStyle.mainTitle,),
                         Text("Tap to play again!", style: AppStyle.mainTitle,),
 
             Center(
