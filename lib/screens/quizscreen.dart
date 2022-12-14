@@ -42,13 +42,13 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
         //end of questions
         _timer.cancel();
 
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: ((context) =>
-                    WinnerScreen(
-                      resultScore: correctAnswers,
-                    ))));
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (BuildContext context) => WinnerScreen(
+                    resultScore: correctAnswers,
+                  )),
+          (Route<dynamic> route) => route.isFirst,
+        );
         return;
       } else {
         index++;
@@ -69,11 +69,12 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
         if (timer < 1) {
           t.cancel();
           //here goes navigator for going to game over screen
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: ((context) =>
-                      LoseScreen(resultScore: correctAnswers))));
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    LoseScreen(resultScore: correctAnswers)),
+            (Route<dynamic> route) => route.isFirst,
+          );
         } else {
           timer = timer - 1;
         }
@@ -134,13 +135,13 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
                     children: <Widget>[
                       Expanded(
                           child: AnswerOption(
-                            Id: questions[index].movies[0].id,
-                            movieTitle: questions[index].movies[0].title,
-                            posterURL: questions[index].movies[0].posterUrl,
-                            correct: questions[index].movies[0].isAnswer,
-                            listener: this,
-                            clickable: clickable,
-                          )),
+                        Id: questions[index].movies[0].id,
+                        movieTitle: questions[index].movies[0].title,
+                        posterURL: questions[index].movies[0].posterUrl,
+                        correct: questions[index].movies[0].isAnswer,
+                        listener: this,
+                        clickable: clickable,
+                      )),
                       Expanded(
                         child: AnswerOption(
                           Id: questions[index].movies[1].id,
