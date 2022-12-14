@@ -14,7 +14,6 @@ if(kIsWeb){
             appId: "1:177905671651:web:81330efb3eb5b79bd494d6", 
              messagingSenderId: "177905671651",
              projectId: "quizapp-d7281",
-
       )
   );
 
@@ -30,6 +29,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: HomeScreen(),
     );
   }
