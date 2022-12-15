@@ -26,17 +26,18 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
   int index = 0;
   bool isPressed = false;
   int correctAnswers = 0;
-  int timer = 10;
-  String timerDisplay = "10";
+  static const int secondsPerQuestion = 15;
+  static const int bonus = 5;
+  int timer = questions.length * secondsPerQuestion;
   late Timer _timer;
 
   void nextQuestion(bool value) {
     setState(() {
       if (value == true) {
-        if (timer + 3 >= 10) {
-          timer = 10;
+        if (timer + bonus >= timer) {
+          timer = questions.length * secondsPerQuestion;
         } else {
-          timer = timer + 3;
+          timer = timer + bonus;
         }
         correctAnswers++;
       }
@@ -60,7 +61,6 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
 
   @override
   void initState() {
-    timer = 10;
     startTimer();
     super.initState();
   }
@@ -80,7 +80,6 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
         } else {
           timer = timer - 1;
         }
-        timerDisplay = timer.toString();
       });
     });
   }
@@ -123,11 +122,12 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
                         circularStrokeCap: CircularStrokeCap.round,
                         backgroundColor: Colors.white,
                         progressColor: Colors.blue,
-                        percent: timer / 10,
+                        percent:
+                            timer / (questions.length * secondsPerQuestion),
                         animation: true,
                         animateFromLastPercent: true,
                         center: Text(
-                          '$timerDisplay',
+                          timer.toString(),
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
