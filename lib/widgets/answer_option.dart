@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quizapp/style/appstyle.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class AnswerOption extends StatefulWidget {
   final int Id;
@@ -55,15 +56,16 @@ class _AnswerOptionState extends State<AnswerOption> {
                   fit: BoxFit.fitHeight,
                   child: Column(
                     children: [
-                      Image.network(
-                        widget.posterURL,
-                        scale: 2,
+                      FadeInImage.memoryNetwork(
+                        placeholder: kTransparentImage,
+                        image: widget.posterURL,
+                        imageScale: 2,
                       ),
                       const SizedBox(height: 8),
                       Text(
                         widget.movieTitle,
                         overflow: TextOverflow.ellipsis,
-                        style: AppStyle.posterTitle,
+                       style: AppStyle.posterTitle,
                       )
                     ],
                   ),
