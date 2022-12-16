@@ -57,15 +57,20 @@ class _AnswerOptionState extends State<AnswerOption> {
                   child: Column(
                     children: [
                       FadeInImage.memoryNetwork(
+                        imageErrorBuilder: (_, __, ___) {
+                          return Image.memory(kTransparentImage);
+                        },
                         placeholder: kTransparentImage,
                         image: widget.posterURL,
                         imageScale: 2,
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        widget.movieTitle,
-                        overflow: TextOverflow.ellipsis,
-                       style: AppStyle.posterTitle,
+                        addNewLine(widget.movieTitle),
+                        style: AppStyle.posterTitle,
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.visible,
                       )
                     ],
                   ),
@@ -81,6 +86,16 @@ class _AnswerOptionState extends State<AnswerOption> {
       }
     } else {
       return AppStyle.cardColor;
+    }
+  }
+
+  String addNewLine(String text) {
+    if (text.length < 35) {
+      return text;
+    } else {
+      List<String> words = text.split(" ");
+      words.insert(words.length ~/ 2, "\n");
+      return words.join(" ");
     }
   }
 }
