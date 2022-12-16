@@ -46,10 +46,18 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: 16),
             Center(
               child: ElevatedButton(
-                onPressed: () {
-                  fetchQuestions().then((result) => {
+                onPressed: () async {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Center(child: CircularProgressIndicator());
+                    },
+                  );
+
+                  await fetchQuestions().then((result) => {
                         if (result != null)
                           {
+                            Navigator.of(context).pop(),
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
