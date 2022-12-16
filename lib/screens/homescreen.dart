@@ -1,12 +1,21 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:quizapp/screens/quizscreen.dart';
-import 'package:quizapp/widgets/quiz_card.dart';
-import '../models/questions_model.dart';
-import '../style/appstyle.dart';
+import 'dart:convert';
 
-//import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:quizapp/screens/quizscreen.dart';
+import '../models/questions.dart';
+import '../style/appstyle.dart';
+import 'package:http/http.dart' as http;
+
+Future<Questions?> fetchQuestions() async {
+  final response = await http
+      .get(Uri.parse('https://mdfjfuhfct.eu-west-1.awsapprunner.com/quiz/'));
+
+  if (response.statusCode == 200) {
+    return Questions.fromJson(jsonDecode(response.body));
+  } else {
+    return null;
+  }
+}
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -38,8 +47,16 @@ class _HomeScreenState extends State<HomeScreen> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: ((context) => QuizScreen())));
+                  fetchQuestions().then((result) => {
+                        if (result != null)
+                          {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => QuizScreen(
+                                        questions: result.questions))))
+                          }
+                      });
                 },
                 child: Icon(Icons.play_arrow_rounded, color: Colors.white),
                 style: ElevatedButton.styleFrom(

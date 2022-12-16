@@ -56,28 +56,36 @@ class _AnswerOptionState extends State<AnswerOption> {
                   fit: BoxFit.fitHeight,
                   child: Column(
                     children: [
-                   //   Image.network(widget.posterURL, frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-                   //     return child;
-                    //  },
-                     // loadingBuilder: ((context, child, loadingProgress) {
-                      //    if(loadingProgress==null){return child;}
-                       //   else {
-                         //   return Center(
-                           //   child: Container(color: Colors.grey, height: 120,),
-                         //   );
-                        //  }
-                     // }),
-                    //  ),
-                     FadeInImage.memoryNetwork(
+/*
+                      Image.network(widget.posterURL, frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                        return child;
+                      },
+                      loadingBuilder: ((context, child, loadingProgress) {
+                          if(loadingProgress==null){return child;}
+                          else {
+                            return Center(
+                             child: Container(color: Colors.grey, height: 120,),
+                            );
+                          }
+                      }),
+                      ),
+*/
+                      FadeInImage.memoryNetwork(
+                        imageErrorBuilder: (_, __, ___) {
+                          return Image.memory(kTransparentImage);
+                        },
+
                         placeholder: kTransparentImage,
                         image: widget.posterURL,
                         imageScale: 2,
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        widget.movieTitle,
-                        overflow: TextOverflow.ellipsis,
-                       style: AppStyle.posterTitle,
+                        addNewLine(widget.movieTitle),
+                        style: AppStyle.posterTitle,
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.visible,
                       )
                     ],
                   ),
@@ -93,6 +101,16 @@ class _AnswerOptionState extends State<AnswerOption> {
       }
     } else {
       return AppStyle.cardColor;
+    }
+  }
+
+  String addNewLine(String text) {
+    if (text.length < 35) {
+      return text;
+    } else {
+      List<String> words = text.split(" ");
+      words.insert(words.length ~/ 2, "\n");
+      return words.join(" ");
     }
   }
 }
