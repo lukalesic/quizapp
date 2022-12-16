@@ -56,8 +56,8 @@ class _AnswerOptionState extends State<AnswerOption> {
                   fit: BoxFit.fitHeight,
                   child: Column(
                     children: [
-/*
-                      Image.network(widget.posterURL, frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+
+          /*            Image.network(widget.posterURL, frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
                         return child;
                       },
                       loadingBuilder: ((context, child, loadingProgress) {
@@ -68,8 +68,9 @@ class _AnswerOptionState extends State<AnswerOption> {
                             );
                           }
                       }),
-                      ),
-*/
+                      ),*/
+
+
                       FadeInImage.memoryNetwork(
                         imageErrorBuilder: (_, __, ___) {
                           return Image.memory(kTransparentImage);
@@ -79,6 +80,7 @@ class _AnswerOptionState extends State<AnswerOption> {
                         image: widget.posterURL,
                         imageScale: 2,
                       ),
+                      
                       const SizedBox(height: 8),
                       Text(
                         addNewLine(widget.movieTitle),
