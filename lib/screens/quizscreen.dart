@@ -24,7 +24,7 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
   int index = 0;
   bool isPressed = false;
   int correctAnswers = 0;
-  static const int secondsPerQuestion = 15;
+  static const int secondsPerQuestion = 5;
   static const int bonus = 5;
   late int timer = widget.questions.length * secondsPerQuestion;
   late Timer _timer;
@@ -32,7 +32,7 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
   void nextQuestion(bool value) {
     setState(() {
       if (value == true) {
-        if (timer + bonus >= timer) {
+        if (timer + bonus >= widget.questions.length * secondsPerQuestion) {
           timer = widget.questions.length * secondsPerQuestion;
         } else {
           timer = timer + bonus;
