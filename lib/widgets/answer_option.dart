@@ -53,11 +53,10 @@ class _AnswerOptionState extends State<AnswerOption> {
             child: Container(
                 padding: const EdgeInsets.all(8),
                 child: FittedBox(
-                  fit: BoxFit.fitHeight,
+                  fit: BoxFit.scaleDown,
                   child: Column(
                     children: [
-
-          /*            Image.network(widget.posterURL, frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                      /*            Image.network(widget.posterURL, frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
                         return child;
                       },
                       loadingBuilder: ((context, child, loadingProgress) {
@@ -70,15 +69,17 @@ class _AnswerOptionState extends State<AnswerOption> {
                       }),
                       ),*/
 
-
-                      FadeInImage.memoryNetwork(
-                        imageErrorBuilder: (_, __, ___) {
-                          return Image.memory(kTransparentImage);
-                        },
-
-                        placeholder: kTransparentImage,
-                        image: widget.posterURL,
-                        imageScale: 2,
+                      Container(
+                        child: Card(
+                          child: FadeInImage.memoryNetwork(
+                            imageErrorBuilder: (_, __, ___) {
+                              return Image.memory(kTransparentImage);
+                            },
+                            placeholder: kTransparentImage,
+                            image: widget.posterURL,
+                            imageScale: 2,
+                          ),
+                        ),
                       ),
                       
                       const SizedBox(height: 8),
@@ -91,7 +92,8 @@ class _AnswerOptionState extends State<AnswerOption> {
                       )
                     ],
                   ),
-                ))));
+                ))
+                ));
   }
 
   Color getAnswerColor() {
