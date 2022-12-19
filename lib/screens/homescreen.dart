@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   showDialog(
                     context: context,
                     builder: (context) {
-                      return Center(child: CircularProgressIndicator());
+                      return AbsorbPointer(child: Center(child: CircularProgressIndicator()));
                     },
                   );
 

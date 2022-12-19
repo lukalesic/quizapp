@@ -56,19 +56,6 @@ class _AnswerOptionState extends State<AnswerOption> {
                   fit: BoxFit.scaleDown,
                   child: Column(
                     children: [
-                      /*            Image.network(widget.posterURL, frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-                        return child;
-                      },
-                      loadingBuilder: ((context, child, loadingProgress) {
-                          if(loadingProgress==null){return child;}
-                          else {
-                            return Center(
-                             child: Container(color: Colors.grey, height: 120,),
-                            );
-                          }
-                      }),
-                      ),*/
-
                       Container(
                         child: Card(
                           child: FadeInImage.memoryNetwork(
