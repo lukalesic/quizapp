@@ -215,10 +215,11 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
                   child: LinearPercentIndicator(
                     animation: true,
                     animationDuration: 350,
+                    barRadius: const Radius.circular(2),
                     animateFromLastPercent: true,
                     percent: index / widget.questions.length,
                     progressColor: Colors.blue,
-                    backgroundColor: Colors.grey,
+                    backgroundColor: Colors.white,
                   ),
                 ),
               ),

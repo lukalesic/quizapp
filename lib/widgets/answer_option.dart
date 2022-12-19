@@ -77,11 +77,9 @@ class _AnswerOptionState extends State<AnswerOption> {
                             },
                             placeholder: kTransparentImage,
                             image: widget.posterURL,
-                            imageScale: 2,
                           ),
                         ),
                       ),
-                      
                       const SizedBox(height: 8),
                       Text(
                         addNewLine(widget.movieTitle),
@@ -92,8 +90,7 @@ class _AnswerOptionState extends State<AnswerOption> {
                       )
                     ],
                   ),
-                ))
-                ));
+                ))));
   }
 
   Color getAnswerColor() {
