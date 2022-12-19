@@ -11,7 +11,12 @@ Future<Questions?> fetchQuestions() async {
       .get(Uri.parse('https://mdfjfuhfct.eu-west-1.awsapprunner.com/quiz/'));
 
   if (response.statusCode == 200) {
-    return Questions.fromJson(jsonDecode(response.body));
+    Questions questions = Questions.fromJson(jsonDecode(response.body));
+    for (var question in questions.questions) {
+      question.movies.shuffle();
+    }
+
+    return questions;
   } else {
     return null;
   }
