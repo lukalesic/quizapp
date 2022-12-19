@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:quizapp/screens/quizscreen.dart';
 
 import '../style/appstyle.dart';
+import 'homescreen.dart';
 
 class WinnerScreen extends StatefulWidget {
   final int resultScore;
@@ -41,7 +43,25 @@ class _WinnerScreenState extends State<WinnerScreen> {
                   ),
                   Center(
                       child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return Center(child: CircularProgressIndicator());
+                        },
+                      );
+                      await fetchQuestions().then((result) => {
+                            if (result != null)
+                              {
+                                Navigator.of(context).pop(),
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) => QuizScreen(
+                                            questions: result.questions))))
+                              }
+                          });
+                    },
                     child: Icon(Icons.play_arrow_rounded, color: Colors.white),
                     style: ElevatedButton.styleFrom(
                       shape: CircleBorder(),
