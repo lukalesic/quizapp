@@ -47,7 +47,7 @@ class _WinnerScreenState extends State<WinnerScreen> {
                       showDialog(
                         context: context,
                         builder: (context) {
-                          return Center(child: CircularProgressIndicator());
+                          return AbsorbPointer(child: Center(child: CircularProgressIndicator()));
                         },
                       );
                       await fetchQuestions().then((result) => {

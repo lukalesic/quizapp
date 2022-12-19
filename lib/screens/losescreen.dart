@@ -50,7 +50,7 @@ class __LoseScreenStateState extends State<LoseScreen> {
                        showDialog(
                     context: context,
                     builder: (context) {
-                      return Center(child: CircularProgressIndicator());
+                      return AbsorbPointer(child: Center(child: CircularProgressIndicator()));
                     },
                   );
    await fetchQuestions().then((result) => {
