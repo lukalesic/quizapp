@@ -14,10 +14,21 @@ class QuestionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      child: Text('Question ${indexAction + 1}/${totalQuestions}: ${question}',
-          style: AppStyle.mainTitle),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          'Question ${indexAction + 1}/${totalQuestions}:',
+          style: AppStyle.mainContent,
+          textAlign: TextAlign.center,
+        ),
+        Text(
+          question,
+          style: AppStyle.mainTitle,
+          textAlign: TextAlign.center,
+        )
+      ],
     );
   }
 }

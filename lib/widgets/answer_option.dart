@@ -62,6 +62,7 @@ class _AnswerOptionState extends State<AnswerOption> {
                             imageErrorBuilder: (_, __, ___) {
                               return Image.memory(kTransparentImage);
                             },
+                            fadeInCurve: Curves.easeInOut,
                             placeholder: kTransparentImage,
                             image: widget.posterURL,
                           ),

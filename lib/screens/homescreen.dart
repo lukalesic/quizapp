@@ -36,7 +36,13 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: AppStyle.backgroundColor,
       appBar: AppBar(
         elevation: 0.0,
-        title: Text("Quiz", style: AppStyle.mainTitle),
+        title: RichText(
+          text: TextSpan(style: AppStyle.mainTitle, children: [
+            TextSpan(text: "K", style: AppStyle.logoStyle),
+            TextSpan(text: "i", style: AppStyle.logoHighlightStyle),
+            TextSpan(text: "nowledge", style: AppStyle.logoStyle)
+          ]),
+        ),
         foregroundColor: Colors.black,
         centerTitle: true,
         backgroundColor: AppStyle.backgroundColor,
@@ -47,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("Test your knowledge!", style: AppStyle.mainTitle),
+            Text("Test your kino knowledge!", style: AppStyle.mainTitle),
             SizedBox(height: 16),
             Center(
               child: ElevatedButton(
@@ -55,7 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   showDialog(
                     context: context,
                     builder: (context) {
-                      return AbsorbPointer(child: Center(child: CircularProgressIndicator()));
+                      return AbsorbPointer(
+                          child: Center(child: CircularProgressIndicator()));
                     },
                   );
 
