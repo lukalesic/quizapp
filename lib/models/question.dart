@@ -16,7 +16,7 @@ class Question {
   Question(this.crewMember, this.movies);
 
   String getQuestion() {
-    return "Pair movie with ${crewMember.jobTitle} ${crewMember.name}";
+    return "Pair movie with ${crewMember.jobTitle}";
   }
 
   factory Question.fromJson(Map<String, dynamic> data) =>

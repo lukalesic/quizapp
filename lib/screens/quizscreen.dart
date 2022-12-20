@@ -149,7 +149,7 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
                 child: QuestionWidget(
                     indexAction: index,
                     question: widget.questions[index].getQuestion(),
-                    totalQuestions: widget.questions.length),
+                    subject: widget.questions[index].crewMember.name),
               ),
               Expanded(
                 flex: 2,

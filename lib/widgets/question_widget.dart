@@ -6,11 +6,11 @@ class QuestionWidget extends StatelessWidget {
       {super.key,
       required this.indexAction,
       required this.question,
-      required this.totalQuestions});
+      required this.subject});
 
   final String question;
+  final String subject;
   final int indexAction;
-  final int totalQuestions;
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +19,15 @@ class QuestionWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Question ${indexAction + 1}/${totalQuestions}:',
+          question,
           style: AppStyle.mainContent,
           textAlign: TextAlign.center,
         ),
+        SizedBox(
+          height: 4,
+        ),
         Text(
-          question,
+          subject,
           style: AppStyle.mainTitle,
           textAlign: TextAlign.center,
         )
