@@ -41,13 +41,16 @@ class _WinnerScreenState extends State<WinnerScreen> {
                     "Tap to play again!",
                     style: AppStyle.mainTitle,
                   ),
+                  SizedBox(height: 16),
                   Center(
                       child: ElevatedButton(
                     onPressed: () async {
                       showDialog(
                         context: context,
                         builder: (context) {
-                          return AbsorbPointer(child: Center(child: CircularProgressIndicator()));
+                          return AbsorbPointer(
+                              child:
+                                  Center(child: CircularProgressIndicator()));
                         },
                       );
                       await fetchQuestions().then((result) => {
