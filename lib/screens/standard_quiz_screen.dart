@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:quizapp/screens/losescreen.dart';
-import 'package:quizapp/screens/standard_win_screen.dart';
+import '../screens/standard_win_screen.dart';
 import 'package:quizapp/style/appstyle.dart';
 import 'package:quizapp/widgets/answer_option.dart';
 import 'package:quizapp/widgets/question_widget.dart';
@@ -19,7 +19,8 @@ class StandardQuizScreen extends StatefulWidget {
   State<StandardQuizScreen> createState() => _QuizScreenState();
 }
 
-class _QuizScreenState extends State<StandardQuizScreen> implements OnAnsweredListener {
+class _QuizScreenState extends State<StandardQuizScreen>
+    implements OnAnsweredListener {
   bool clickable = true;
   bool highlightAnswer = false;
 

@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:quizapp/screens/losescreen.dart';
-import 'package:quizapp/screens/standard_win_screen.dart';
 import 'package:quizapp/style/appstyle.dart';
 import 'package:quizapp/widgets/answer_option.dart';
 import 'package:quizapp/widgets/question_widget.dart';
 import '../models/question.dart';
+import '../screens/time_attack_win_screen.dart';
 
 class TimeAttackScreen extends StatefulWidget {
   final List<Question> questions;
@@ -47,7 +47,8 @@ class _TimeAttackScreenState extends State<TimeAttackScreen>
 
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-              builder: (BuildContext context) => StandardWinScreen(
+              builder: (BuildContext context) => TimeAttackWinScreen(
+                    finalScore: scorePoints,
                     resultScore: correctAnswers,
                     totalQuestions: widget.questions.length,
                   )),

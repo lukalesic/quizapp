@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quizapp/screens/standard_quiz_screen.dart';
+import 'package:quizapp/screens/time_attack_screen.dart';
 
 import '../style/appstyle.dart';
 import 'homescreen.dart';
@@ -7,20 +7,22 @@ import 'homescreen.dart';
 class TimeAttackWinScreen extends StatefulWidget {
   final int resultScore;
   final int totalQuestions;
+  final int finalScore;
 
   const TimeAttackWinScreen(
-      {required this.resultScore, required this.totalQuestions, super.key});
+      {required this.resultScore, required this.totalQuestions, required this.finalScore, super.key});
 
   @override
   State<TimeAttackWinScreen> createState() =>
-      _TimeAttackWinScreenState(resultScore, totalQuestions);
+      _TimeAttackWinScreenState(resultScore, totalQuestions, finalScore);
 }
 
 class _TimeAttackWinScreenState extends State<TimeAttackWinScreen> {
   int resultScore;
   int totalQuestions;
+  int finalScore;
 
-  _TimeAttackWinScreenState(this.resultScore, this.totalQuestions);
+  _TimeAttackWinScreenState(this.resultScore, this.totalQuestions, this.finalScore);
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,10 @@ class _TimeAttackWinScreenState extends State<TimeAttackWinScreen> {
                   Text("Game completed!", style: AppStyle.mainTitle),
                   Text(
                     "Result: ${resultScore}/${totalQuestions}",
+                    style: AppStyle.mainTitle,
+                  ),
+                  Text(
+                    "Final Score: $finalScore", 
                     style: AppStyle.mainTitle,
                   ),
                   Text(
@@ -61,7 +67,7 @@ class _TimeAttackWinScreenState extends State<TimeAttackWinScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: ((context) =>
-                                            StandardQuizScreen(
+                                            TimeAttackScreen(
                                                 questions: result.questions))))
                               }
                           });

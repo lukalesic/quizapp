@@ -63,8 +63,9 @@ class __LoseScreenStateState extends State<LoseScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: ((context) => StandardQuizScreen(
-                                            questions: result.questions))))
+                                        builder: ((context) =>
+                                            StandardQuizScreen(
+                                                questions: result.questions))))
                               }
                           });
                     },
