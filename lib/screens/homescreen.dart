@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:quizapp/screens/quizscreen.dart';
+import 'package:quizapp/screens/standard_quiz_screen.dart';
+import 'package:quizapp/screens/time_attack_screen.dart';
 import '../models/questions.dart';
 import '../style/appstyle.dart';
 import 'package:http/http.dart' as http;
@@ -74,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: ((context) => QuizScreen(
+                                    builder: ((context) => StandardQuizScreen(
                                         questions: result.questions))))
                           }
                       });
@@ -85,6 +86,33 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: EdgeInsets.all(20),
                     backgroundColor: Colors.blue // <-- Button color
                     ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                child: Text('Time attack'),
+                onPressed: () async {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AbsorbPointer(
+                          child: Center(child: CircularProgressIndicator()));
+                    },
+                  );
+
+                  await fetchQuestions().then((result) => {
+                        if (result != null)
+                          {
+                            Navigator.of(context).pop(),
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => TimeAttackScreen(
+                                        questions: result.questions))))
+                          }
+                      });
+                },
               ),
             )
           ],

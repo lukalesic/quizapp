@@ -10,16 +10,16 @@ import 'package:quizapp/widgets/answer_option.dart';
 import 'package:quizapp/widgets/question_widget.dart';
 import '../models/question.dart';
 
-class QuizScreen extends StatefulWidget {
+class StandardQuizScreen extends StatefulWidget {
   final List<Question> questions;
 
-  const QuizScreen({super.key, required this.questions});
+  const StandardQuizScreen({super.key, required this.questions});
 
   @override
-  State<QuizScreen> createState() => _QuizScreenState();
+  State<StandardQuizScreen> createState() => _QuizScreenState();
 }
 
-class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
+class _QuizScreenState extends State<StandardQuizScreen> implements OnAnsweredListener {
   bool clickable = true;
   bool highlightAnswer = false;
 

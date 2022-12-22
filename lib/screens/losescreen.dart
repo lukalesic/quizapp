@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quizapp/screens/quizscreen.dart';
+import 'package:quizapp/screens/standard_quiz_screen.dart';
 
 import '../style/appstyle.dart';
 import 'homescreen.dart';
@@ -63,7 +63,7 @@ class __LoseScreenStateState extends State<LoseScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: ((context) => QuizScreen(
+                                        builder: ((context) => StandardQuizScreen(
                                             questions: result.questions))))
                               }
                           });
