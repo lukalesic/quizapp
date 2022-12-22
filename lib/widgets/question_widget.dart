@@ -6,18 +6,32 @@ class QuestionWidget extends StatelessWidget {
       {super.key,
       required this.indexAction,
       required this.question,
-      required this.totalQuestions});
+      required this.subject});
 
   final String question;
+  final String subject;
   final int indexAction;
-  final int totalQuestions;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      child: Text('Question ${indexAction + 1}/${totalQuestions}: ${question}',
-          style: AppStyle.mainTitle),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          question,
+          style: AppStyle.mainContent,
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(
+          height: 4,
+        ),
+        Text(
+          subject,
+          style: AppStyle.mainTitle,
+          textAlign: TextAlign.center,
+        )
+      ],
     );
   }
 }

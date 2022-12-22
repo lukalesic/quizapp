@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quizapp/screens/quizscreen.dart';
+import 'package:quizapp/screens/standard_quiz_screen.dart';
 
 import '../style/appstyle.dart';
 import 'homescreen.dart';
@@ -44,27 +44,29 @@ class __LoseScreenStateState extends State<LoseScreen> {
                     "Tap to play again!",
                     style: AppStyle.mainTitle,
                   ),
+                  SizedBox(height: 16),
                   Center(
                       child: ElevatedButton(
-                    onPressed: () async{
-                       showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AbsorbPointer(child: Center(child: CircularProgressIndicator()));
-                    },
-                  );
-   await fetchQuestions().then((result) => {
-                        if (result != null)
-                          {
-                            Navigator.of(context).pop(),
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: ((context) => QuizScreen(
-                                        questions: result.questions))))
-                          }
-                      });
-
+                    onPressed: () async {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AbsorbPointer(
+                              child:
+                                  Center(child: CircularProgressIndicator()));
+                        },
+                      );
+                      await fetchQuestions().then((result) => {
+                            if (result != null)
+                              {
+                                Navigator.of(context).pop(),
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) => StandardQuizScreen(
+                                            questions: result.questions))))
+                              }
+                          });
                     },
                     child: Icon(Icons.play_arrow_rounded, color: Colors.white),
                     style: ElevatedButton.styleFrom(

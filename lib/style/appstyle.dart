@@ -31,4 +31,10 @@ class AppStyle {
 
   static TextStyle posterTitle = GoogleFonts.nunito(
       fontSize: 18, fontWeight: FontWeight.normal, color: textColor);
+
+  static TextStyle logoStyle = GoogleFonts.nunito(
+      fontSize: 24, fontWeight: FontWeight.bold, color: accentColor);
+
+  static TextStyle logoHighlightStyle = GoogleFonts.nunito(
+      fontSize: 24, fontWeight: FontWeight.w600, color: Colors.white);
 }

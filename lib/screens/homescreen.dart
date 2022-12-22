@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:quizapp/screens/quizscreen.dart';
+import 'package:quizapp/screens/standard_quiz_screen.dart';
+import 'package:quizapp/screens/time_attack_screen.dart';
 import '../models/questions.dart';
 import '../style/appstyle.dart';
 import 'package:http/http.dart' as http;
@@ -11,7 +12,13 @@ Future<Questions?> fetchQuestions() async {
       .get(Uri.parse('https://mdfjfuhfct.eu-west-1.awsapprunner.com/quiz/'));
 
   if (response.statusCode == 200) {
-    return Questions.fromJson(jsonDecode(response.body));
+    Questions questions =
+        Questions.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+    for (var question in questions.questions) {
+      question.movies.shuffle();
+    }
+
+    return questions;
   } else {
     return null;
   }
@@ -31,7 +38,13 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: AppStyle.backgroundColor,
       appBar: AppBar(
         elevation: 0.0,
-        title: Text("Quiz", style: AppStyle.mainTitle),
+        title: RichText(
+          text: TextSpan(style: AppStyle.mainTitle, children: [
+            TextSpan(text: "K", style: AppStyle.logoStyle),
+            TextSpan(text: "i", style: AppStyle.logoHighlightStyle),
+            TextSpan(text: "nowledge", style: AppStyle.logoStyle)
+          ]),
+        ),
         foregroundColor: Colors.black,
         centerTitle: true,
         backgroundColor: AppStyle.backgroundColor,
@@ -42,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("Test your knowledge!", style: AppStyle.mainTitle),
+            Text("Test your kino knowledge!", style: AppStyle.mainTitle),
             SizedBox(height: 16),
             Center(
               child: ElevatedButton(
@@ -50,7 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   showDialog(
                     context: context,
                     builder: (context) {
-                      return AbsorbPointer(child: Center(child: CircularProgressIndicator()));
+                      return AbsorbPointer(
+                          child: Center(child: CircularProgressIndicator()));
                     },
                   );
 
@@ -61,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: ((context) => QuizScreen(
+                                    builder: ((context) => StandardQuizScreen(
                                         questions: result.questions))))
                           }
                       });
@@ -72,6 +86,33 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: EdgeInsets.all(20),
                     backgroundColor: Colors.blue // <-- Button color
                     ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                child: Text('Time attack'),
+                onPressed: () async {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AbsorbPointer(
+                          child: Center(child: CircularProgressIndicator()));
+                    },
+                  );
+
+                  await fetchQuestions().then((result) => {
+                        if (result != null)
+                          {
+                            Navigator.of(context).pop(),
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => TimeAttackScreen(
+                                        questions: result.questions))))
+                          }
+                      });
+                },
               ),
             )
           ],

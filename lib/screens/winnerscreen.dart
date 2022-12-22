@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quizapp/screens/quizscreen.dart';
+import 'package:quizapp/screens/standard_quiz_screen.dart';
 
 import '../style/appstyle.dart';
 import 'homescreen.dart';
@@ -41,13 +41,16 @@ class _WinnerScreenState extends State<WinnerScreen> {
                     "Tap to play again!",
                     style: AppStyle.mainTitle,
                   ),
+                  SizedBox(height: 16),
                   Center(
                       child: ElevatedButton(
                     onPressed: () async {
                       showDialog(
                         context: context,
                         builder: (context) {
-                          return AbsorbPointer(child: Center(child: CircularProgressIndicator()));
+                          return AbsorbPointer(
+                              child:
+                                  Center(child: CircularProgressIndicator()));
                         },
                       );
                       await fetchQuestions().then((result) => {
@@ -57,7 +60,7 @@ class _WinnerScreenState extends State<WinnerScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: ((context) => QuizScreen(
+                                        builder: ((context) => StandardQuizScreen(
                                             questions: result.questions))))
                               }
                           });

@@ -16,15 +16,11 @@ class CrewMember {
   @JsonKey(name: "job_title")
   final String jobTitle;
 
-  @JsonKey(name: "photo")
-  final String photoUrl;
-
   CrewMember(
       {required this.id,
       required this.name,
       required this.popularity,
-      required this.jobTitle,
-      required this.photoUrl});
+      required this.jobTitle});
 
   factory CrewMember.fromJson(Map<String, dynamic> data) =>
       _$CrewMemberFromJson(data);

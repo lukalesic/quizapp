@@ -9,6 +9,7 @@ class AnswerOption extends StatefulWidget {
   final bool correct;
   final OnAnsweredListener? listener;
   final bool clickable;
+  final bool highlightAnswer;
 
   const AnswerOption(
       {super.key,
@@ -17,7 +18,8 @@ class AnswerOption extends StatefulWidget {
       required this.posterURL,
       required this.correct,
       required this.listener,
-      required this.clickable});
+      required this.clickable,
+      required this.highlightAnswer});
 
   @override
   State<StatefulWidget> createState() => _AnswerOptionState();
@@ -62,13 +64,12 @@ class _AnswerOptionState extends State<AnswerOption> {
                             imageErrorBuilder: (_, __, ___) {
                               return Image.memory(kTransparentImage);
                             },
+                            fadeInCurve: Curves.easeInOut,
                             placeholder: kTransparentImage,
                             image: widget.posterURL,
-                            imageScale: 2,
                           ),
                         ),
                       ),
-                      
                       const SizedBox(height: 8),
                       Text(
                         addNewLine(widget.movieTitle),
@@ -79,12 +80,13 @@ class _AnswerOptionState extends State<AnswerOption> {
                       )
                     ],
                   ),
-                ))
-                ));
+                ))));
   }
 
   Color getAnswerColor() {
-    if (clicked) {
+    if (widget.highlightAnswer && widget.correct) {
+      return Colors.green;
+    } else if (clicked) {
       if (widget.correct) {
         return Colors.green;
       } else {
