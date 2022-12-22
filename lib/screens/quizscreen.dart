@@ -21,6 +21,8 @@ class QuizScreen extends StatefulWidget {
 
 class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
   bool clickable = true;
+  bool highlightAnswer = false;
+
   int index = 0;
   bool isPressed = false;
   int correctAnswers = 0;
@@ -165,6 +167,7 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
                       correct: widget.questions[index].movies[0].isAnswer,
                       listener: this,
                       clickable: clickable,
+                      highlightAnswer: highlightAnswer,
                     )),
                     Expanded(
                       child: AnswerOption(
@@ -174,6 +177,7 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
                         correct: widget.questions[index].movies[1].isAnswer,
                         listener: this,
                         clickable: clickable,
+                        highlightAnswer: highlightAnswer,
                       ),
                     ),
                   ],
@@ -193,6 +197,7 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
                         correct: widget.questions[index].movies[2].isAnswer,
                         listener: this,
                         clickable: clickable,
+                        highlightAnswer: highlightAnswer,
                       ),
                     ),
                     Expanded(
@@ -203,6 +208,7 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
                         correct: widget.questions[index].movies[3].isAnswer,
                         listener: this,
                         clickable: clickable,
+                        highlightAnswer: highlightAnswer,
                       ),
                     ),
                   ],
@@ -232,12 +238,16 @@ class _QuizScreenState extends State<QuizScreen> implements OnAnsweredListener {
 
   @override
   void onQuestionAnswered(bool isCorrect) {
+    if (!isCorrect) {
+      highlightAnswer = true;
+    }
     setState(() {
       clickable = false;
     });
     Future.delayed(const Duration(seconds: 1), () {
       nextQuestion(isCorrect);
       clickable = true;
+      highlightAnswer = false;
     });
   }
 }
