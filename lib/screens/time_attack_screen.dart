@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:quizapp/screens/losescreen.dart';
-import 'package:quizapp/screens/winnerscreen.dart';
+import 'package:quizapp/screens/standard_win_screen.dart';
 import 'package:quizapp/style/appstyle.dart';
 import 'package:quizapp/widgets/answer_option.dart';
 import 'package:quizapp/widgets/question_widget.dart';
@@ -47,7 +47,7 @@ class _TimeAttackScreenState extends State<TimeAttackScreen>
 
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-              builder: (BuildContext context) => WinnerScreen(
+              builder: (BuildContext context) => StandardWinScreen(
                     resultScore: correctAnswers,
                     totalQuestions: widget.questions.length,
                   )),
@@ -142,7 +142,6 @@ class _TimeAttackScreenState extends State<TimeAttackScreen>
                         'Correct answers: $correctAnswers/${widget.questions.length}\nScore: $scorePoints',
                         textAlign: TextAlign.left,
                         style: TextStyle(color: Colors.white),
-                        
                       ),
                     ),
                   ),
