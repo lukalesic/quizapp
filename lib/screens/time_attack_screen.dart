@@ -3,17 +3,18 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:quizapp/screens/losescreen.dart';
-import 'package:quizapp/screens/winnerscreen.dart';
+import 'package:quizapp/screens/lose_screen.dart';
 import 'package:quizapp/style/appstyle.dart';
 import 'package:quizapp/widgets/answer_option.dart';
 import 'package:quizapp/widgets/question_widget.dart';
 import '../models/question.dart';
+import 'win_screen.dart';
 
 class TimeAttackScreen extends StatefulWidget {
   final List<Question> questions;
+  static const String timeAttackGameMode = 'timeAttack';
 
-  const TimeAttackScreen({super.key, required this.questions});
+  const TimeAttackScreen({super.key, required this.questions,});
 
   @override
   State<TimeAttackScreen> createState() => _TimeAttackScreenState();
@@ -27,7 +28,7 @@ class _TimeAttackScreenState extends State<TimeAttackScreen>
   int index = 0;
   bool isPressed = false;
   int correctAnswers = 0;
-  int scorePoints = 0;
+  int resultScore = 0;
   static const int secondsPerQuestion = 5;
   static const int bonus = 5;
   late int timer = 5;
@@ -36,7 +37,7 @@ class _TimeAttackScreenState extends State<TimeAttackScreen>
   void nextQuestion(bool value) {
     setState(() {
       if (value == true) {
-        scorePoints = scorePoints + timer;
+        resultScore = resultScore + timer;
         timer = 5;
 
         correctAnswers++;
@@ -47,9 +48,11 @@ class _TimeAttackScreenState extends State<TimeAttackScreen>
 
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-              builder: (BuildContext context) => WinnerScreen(
-                    resultScore: correctAnswers,
+              builder: (BuildContext context) => WinScreen(
+                    correctAnswers: correctAnswers,
                     totalQuestions: widget.questions.length,
+                    gameMode: TimeAttackScreen.timeAttackGameMode,
+                    resultScore: resultScore,
                   )),
           (Route<dynamic> route) => route.isFirst,
         );
@@ -75,8 +78,10 @@ class _TimeAttackScreenState extends State<TimeAttackScreen>
           Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
                 builder: (BuildContext context) => LoseScreen(
-                      resultScore: correctAnswers,
+                      correctAnswers: correctAnswers,
                       totalQuestions: widget.questions.length,
+                      gameMode: TimeAttackScreen.timeAttackGameMode,
+                      resultScore: resultScore,
                     )),
             (Route<dynamic> route) => route.isFirst,
           );
@@ -139,10 +144,9 @@ class _TimeAttackScreenState extends State<TimeAttackScreen>
                     alignment: Alignment.centerLeft,
                     child: Container(
                       child: Text(
-                        'Correct answers: $correctAnswers/${widget.questions.length}\nScore: $scorePoints',
+                        'Correct answers: $correctAnswers/${widget.questions.length}\nScore: $resultScore',
                         textAlign: TextAlign.left,
                         style: TextStyle(color: Colors.white),
-                        
                       ),
                     ),
                   ),

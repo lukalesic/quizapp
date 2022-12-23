@@ -1,10 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:quizapp/screens/losescreen.dart';
-import 'package:quizapp/screens/winnerscreen.dart';
+import 'package:quizapp/screens/lose_screen.dart';
+import 'win_screen.dart';
 import 'package:quizapp/style/appstyle.dart';
 import 'package:quizapp/widgets/answer_option.dart';
 import 'package:quizapp/widgets/question_widget.dart';
@@ -12,6 +11,7 @@ import '../models/question.dart';
 
 class StandardQuizScreen extends StatefulWidget {
   final List<Question> questions;
+  static const String standardGameMode = 'standard';
 
   const StandardQuizScreen({super.key, required this.questions});
 
@@ -43,9 +43,11 @@ class _QuizScreenState extends State<StandardQuizScreen>
 
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-              builder: (BuildContext context) => WinnerScreen(
-                    resultScore: correctAnswers,
+              builder: (BuildContext context) => WinScreen(
+                    correctAnswers: correctAnswers,
                     totalQuestions: widget.questions.length,
+                    gameMode: StandardQuizScreen.standardGameMode,
+                    resultScore: correctAnswers,
                   )),
           (Route<dynamic> route) => route.isFirst,
         );
@@ -67,12 +69,13 @@ class _QuizScreenState extends State<StandardQuizScreen>
       setState(() {
         if (timer < 1) {
           t.cancel();
-          //here goes navigator for going to game over screen
           Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
                 builder: (BuildContext context) => LoseScreen(
-                      resultScore: correctAnswers,
+                      correctAnswers: correctAnswers,
                       totalQuestions: widget.questions.length,
+                      gameMode: StandardQuizScreen.standardGameMode,
+                      resultScore: correctAnswers,
                     )),
             (Route<dynamic> route) => route.isFirst,
           );
