@@ -11,6 +11,7 @@ import '../models/question.dart';
 
 class StandardQuizScreen extends StatefulWidget {
   final List<Question> questions;
+  static const String standardGameMode = 'standard';
 
   const StandardQuizScreen({super.key, required this.questions});
 
@@ -50,7 +51,7 @@ class _QuizScreenState extends State<StandardQuizScreen>
               builder: (BuildContext context) => WinScreen(
                     correctAnswers: correctAnswers,
                     totalQuestions: widget.questions.length,
-                    gameMode: 'standard',
+                    gameMode: StandardQuizScreen.standardGameMode,
                     resultScore: correctAnswers,
                   )),
           (Route<dynamic> route) => route.isFirst,
@@ -78,7 +79,7 @@ class _QuizScreenState extends State<StandardQuizScreen>
                 builder: (BuildContext context) => LoseScreen(
                       correctAnswers: correctAnswers,
                       totalQuestions: widget.questions.length,
-                      gameMode: 'standard',
+                      gameMode: StandardQuizScreen.standardGameMode,
                       resultScore: correctAnswers,
                     )),
             (Route<dynamic> route) => route.isFirst,

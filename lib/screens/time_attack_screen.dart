@@ -12,8 +12,9 @@ import 'win_screen.dart';
 
 class TimeAttackScreen extends StatefulWidget {
   final List<Question> questions;
+  static const String timeAttackGameMode = 'timeAttack';
 
-  const TimeAttackScreen({super.key, required this.questions});
+  const TimeAttackScreen({super.key, required this.questions,});
 
   @override
   State<TimeAttackScreen> createState() => _TimeAttackScreenState();
@@ -50,7 +51,7 @@ class _TimeAttackScreenState extends State<TimeAttackScreen>
               builder: (BuildContext context) => WinScreen(
                     correctAnswers: correctAnswers,
                     totalQuestions: widget.questions.length,
-                    gameMode: 'timeAttack',
+                    gameMode: TimeAttackScreen.timeAttackGameMode,
                     resultScore: resultScore,
                   )),
           (Route<dynamic> route) => route.isFirst,
@@ -79,7 +80,7 @@ class _TimeAttackScreenState extends State<TimeAttackScreen>
                 builder: (BuildContext context) => LoseScreen(
                       correctAnswers: correctAnswers,
                       totalQuestions: widget.questions.length,
-                      gameMode: 'timeAttack',
+                      gameMode: TimeAttackScreen.timeAttackGameMode,
                       resultScore: resultScore,
                     )),
             (Route<dynamic> route) => route.isFirst,

@@ -71,7 +71,7 @@ class __LoseScreenStateState extends State<LoseScreen> {
                       );
 
                       switch (gameMode) {
-                        case 'standard':
+                        case StandardQuizScreen.standardGameMode:
                           await fetchQuestions().then((result) => {
                                 if (result != null)
                                   {
@@ -87,7 +87,7 @@ class __LoseScreenStateState extends State<LoseScreen> {
                               });
                           break;
 
-                        case 'timeAttack':
+                        case TimeAttackScreen.timeAttackGameMode:
                           await fetchQuestions().then((result) => {
                                 if (result != null)
                                   {

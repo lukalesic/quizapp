@@ -70,7 +70,7 @@ class _WinScreenState extends State<WinScreen> {
                       );
 
                       switch (gameMode) {
-                        case 'standard':
+                        case StandardQuizScreen.standardGameMode:
                           await fetchQuestions().then((result) => {
                                 if (result != null)
                                   {
@@ -86,7 +86,7 @@ class _WinScreenState extends State<WinScreen> {
                               });
                           break;
 
-                        case 'timeAttack':
+                        case TimeAttackScreen.timeAttackGameMode:
                           await fetchQuestions().then((result) => {
                                 if (result != null)
                                   {
