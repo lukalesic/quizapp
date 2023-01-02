@@ -51,7 +51,10 @@ class _TimeAttackScreenState extends State<TimeAttackScreen>
         //end of questions
         _timer.cancel();
 
-        HighScore(score: resultScore, gameMode: TimeAttackScreen.timeAttackGameMode).save(TimeAttackScreen.timeAttackGameMode);
+        HighScore(
+                score: resultScore,
+                gameMode: TimeAttackScreen.timeAttackGameMode)
+            .save(TimeAttackScreen.timeAttackGameMode);
 
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(

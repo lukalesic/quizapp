@@ -52,7 +52,7 @@ class _WinScreenState extends State<WinScreen> {
   @override
   Widget build(BuildContext context) {
     getScores(gameMode);
-   // getScores(gameMode);
+    // getScores(gameMode);
     return Scaffold(
         backgroundColor: AppStyle.backgroundColor,
         body: Padding(

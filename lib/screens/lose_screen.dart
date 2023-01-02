@@ -71,7 +71,7 @@ class __LoseScreenStateState extends State<LoseScreen> {
                       "Score: $resultScore",
                       style: AppStyle.mainTitle,
                     ),
-                      for (var highScore in highScore)
+                  for (var highScore in highScore)
                     Text(
                       "Current high score: ${highScore.score.toString()}",
                       style: AppStyle.mainTitle,
