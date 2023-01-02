@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:quizapp/screens/lose_screen.dart';
+import '../widgets/highscore.dart';
 import 'win_screen.dart';
 import 'package:quizapp/style/appstyle.dart';
 import 'package:quizapp/widgets/answer_option.dart';
@@ -23,6 +24,7 @@ class _QuizScreenState extends State<StandardQuizScreen>
     implements OnAnsweredListener {
   bool clickable = true;
   bool highlightAnswer = false;
+  List standardHighScore = [];
 
   int index = 0;
   bool isPressed = false;
@@ -45,6 +47,7 @@ class _QuizScreenState extends State<StandardQuizScreen>
       if (index == widget.questions.length - 1) {
         //end of questions
         _timer.cancel();
+        HighScore(score: correctAnswers, gameMode: StandardQuizScreen.standardGameMode).save(StandardQuizScreen.standardGameMode);
 
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
@@ -53,6 +56,7 @@ class _QuizScreenState extends State<StandardQuizScreen>
                     totalQuestions: widget.questions.length,
                     gameMode: StandardQuizScreen.standardGameMode,
                     resultScore: correctAnswers,
+                    highScore: standardHighScore,
                   )),
           (Route<dynamic> route) => route.isFirst,
         );
@@ -81,6 +85,7 @@ class _QuizScreenState extends State<StandardQuizScreen>
                       totalQuestions: widget.questions.length,
                       gameMode: StandardQuizScreen.standardGameMode,
                       resultScore: correctAnswers,
+                      highScore: standardHighScore,
                     )),
             (Route<dynamic> route) => route.isFirst,
           );
