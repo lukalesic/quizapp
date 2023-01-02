@@ -42,7 +42,10 @@ class _QuizScreenState extends State<StandardQuizScreen>
       if (index == widget.questions.length - 1) {
         //end of questions
         _timer.cancel();
-        HighScore(score: correctAnswers, gameMode: StandardQuizScreen.standardGameMode).save(StandardQuizScreen.standardGameMode);
+        HighScore(
+                score: correctAnswers,
+                gameMode: StandardQuizScreen.standardGameMode)
+            .save(StandardQuizScreen.standardGameMode);
 
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
