@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -7,14 +8,19 @@ import 'package:quizapp/screens/lose_screen.dart';
 import 'package:quizapp/style/appstyle.dart';
 import 'package:quizapp/widgets/answer_option.dart';
 import 'package:quizapp/widgets/question_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/question.dart';
+import '../widgets/highscore.dart';
 import 'win_screen.dart';
 
 class TimeAttackScreen extends StatefulWidget {
   final List<Question> questions;
   static const String timeAttackGameMode = 'timeAttack';
 
-  const TimeAttackScreen({super.key, required this.questions,});
+  const TimeAttackScreen({
+    super.key,
+    required this.questions,
+  });
 
   @override
   State<TimeAttackScreen> createState() => _TimeAttackScreenState();
@@ -24,7 +30,7 @@ class _TimeAttackScreenState extends State<TimeAttackScreen>
     implements OnAnsweredListener {
   bool clickable = true;
   bool highlightAnswer = false;
-
+  List timeAttackHighScores = [];
   int index = 0;
   bool isPressed = false;
   int correctAnswers = 0;
@@ -39,12 +45,13 @@ class _TimeAttackScreenState extends State<TimeAttackScreen>
       if (value == true) {
         resultScore = resultScore + timer;
         timer = 5;
-
         correctAnswers++;
       }
       if (index == widget.questions.length - 1) {
         //end of questions
         _timer.cancel();
+
+        HighScore(score: resultScore, gameMode: TimeAttackScreen.timeAttackGameMode).save(TimeAttackScreen.timeAttackGameMode);
 
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
@@ -52,6 +59,7 @@ class _TimeAttackScreenState extends State<TimeAttackScreen>
                     correctAnswers: correctAnswers,
                     totalQuestions: widget.questions.length,
                     gameMode: TimeAttackScreen.timeAttackGameMode,
+                    highScore: timeAttackHighScores,
                     resultScore: resultScore,
                   )),
           (Route<dynamic> route) => route.isFirst,
@@ -82,6 +90,7 @@ class _TimeAttackScreenState extends State<TimeAttackScreen>
                       totalQuestions: widget.questions.length,
                       gameMode: TimeAttackScreen.timeAttackGameMode,
                       resultScore: resultScore,
+                      highScore: timeAttackHighScores,
                     )),
             (Route<dynamic> route) => route.isFirst,
           );
