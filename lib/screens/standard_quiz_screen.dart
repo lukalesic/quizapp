@@ -29,19 +29,14 @@ class _QuizScreenState extends State<StandardQuizScreen>
   int index = 0;
   bool isPressed = false;
   int correctAnswers = 0;
-  static const int secondsPerQuestion = 5;
-  static const int bonus = 5;
-  late int timer = widget.questions.length * secondsPerQuestion;
+  static const int secondsPerQuestion = 10;
+  late int timer = secondsPerQuestion;
   late Timer _timer;
 
   void nextQuestion(bool value) {
     setState(() {
+      timer = secondsPerQuestion;
       if (value == true) {
-        if (timer + bonus >= widget.questions.length * secondsPerQuestion) {
-          timer = widget.questions.length * secondsPerQuestion;
-        } else {
-          timer = timer + bonus;
-        }
         correctAnswers++;
       }
       if (index == widget.questions.length - 1) {
@@ -137,8 +132,7 @@ class _QuizScreenState extends State<StandardQuizScreen>
                         circularStrokeCap: CircularStrokeCap.round,
                         backgroundColor: Colors.white,
                         progressColor: Colors.blue,
-                        percent: timer /
-                            (widget.questions.length * secondsPerQuestion),
+                        percent: timer / secondsPerQuestion,
                         animation: true,
                         animateFromLastPercent: true,
                         center: Text(
