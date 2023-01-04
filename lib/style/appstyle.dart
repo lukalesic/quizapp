@@ -29,6 +29,9 @@ class AppStyle {
   static TextStyle mainContent = GoogleFonts.nunito(
       fontSize: 16, fontWeight: FontWeight.normal, color: textColor);
 
+  static TextStyle largeTitle = GoogleFonts.roboto(
+      fontSize: 32, fontWeight: FontWeight.bold, color: textColor);
+
   static TextStyle posterTitle = GoogleFonts.nunito(
       fontSize: 18, fontWeight: FontWeight.normal, color: textColor);
 
@@ -37,4 +40,7 @@ class AppStyle {
 
   static TextStyle logoHighlightStyle = GoogleFonts.nunito(
       fontSize: 24, fontWeight: FontWeight.w600, color: Colors.white);
+
+  static TextStyle floatingButtonStyle = GoogleFonts.roboto(
+      fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white);
 }
