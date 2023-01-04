@@ -10,7 +10,7 @@ import 'package:quizapp/widgets/answer_option.dart';
 import 'package:quizapp/widgets/question_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/question.dart';
-import '../widgets/highscore.dart';
+import '../models/highscore.dart';
 import 'win_screen.dart';
 
 class TimeAttackScreen extends StatefulWidget {
@@ -30,7 +30,7 @@ class _TimeAttackScreenState extends State<TimeAttackScreen>
     implements OnAnsweredListener {
   bool clickable = true;
   bool highlightAnswer = false;
-  List timeAttackHighScores = [];
+  List<HighScore> timeAttackHighScores = List.empty(growable: true);
   int index = 0;
   bool isPressed = false;
   int correctAnswers = 0;
@@ -62,7 +62,7 @@ class _TimeAttackScreenState extends State<TimeAttackScreen>
                     correctAnswers: correctAnswers,
                     totalQuestions: widget.questions.length,
                     gameMode: TimeAttackScreen.timeAttackGameMode,
-                    highScore: timeAttackHighScores,
+                    highScores: timeAttackHighScores,
                     resultScore: resultScore,
                   )),
           (Route<dynamic> route) => route.isFirst,
@@ -93,7 +93,7 @@ class _TimeAttackScreenState extends State<TimeAttackScreen>
                       totalQuestions: widget.questions.length,
                       gameMode: TimeAttackScreen.timeAttackGameMode,
                       resultScore: resultScore,
-                      highScore: timeAttackHighScores,
+                      highScores: timeAttackHighScores,
                     )),
             (Route<dynamic> route) => route.isFirst,
           );
