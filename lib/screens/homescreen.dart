@@ -2,27 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:quizapp/screens/standard_quiz_screen.dart';
+import 'package:quizapp/screens/survival_quiz_screen.dart';
 import 'package:quizapp/screens/time_attack_screen.dart';
-import '../models/questions.dart';
+import '../remote/repository.dart';
 import '../style/appstyle.dart';
-import 'package:http/http.dart' as http;
-
-Future<Questions?> fetchQuestions() async {
-  final response = await http
-      .get(Uri.parse('https://mdfjfuhfct.eu-west-1.awsapprunner.com/quiz/'));
-
-  if (response.statusCode == 200) {
-    Questions questions =
-        Questions.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
-    for (var question in questions.questions) {
-      question.movies.shuffle();
-    }
-
-    return questions;
-  } else {
-    return null;
-  }
-}
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -58,38 +41,33 @@ class _HomeScreenState extends State<HomeScreen> {
             Text("Test your kino knowledge!", style: AppStyle.mainTitle),
             SizedBox(height: 16),
             Center(
-              child: ElevatedButton(
-                onPressed: () async {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AbsorbPointer(
-                          child: Center(child: CircularProgressIndicator()));
-                    },
-                  );
+                child: ElevatedButton(
+                    child: Text('Standard'),
+                    onPressed: () async {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AbsorbPointer(
+                              child:
+                                  Center(child: CircularProgressIndicator()));
+                        },
+                      );
 
-                  await fetchQuestions().then((result) => {
-                        if (result != null)
-                          {
-                            Navigator.of(context).pop(),
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: ((context) => StandardQuizScreen(
-                                        questions: result.questions))))
-                          }
-                      });
-                },
-                child: Icon(Icons.play_arrow_rounded, color: Colors.white),
-                style: ElevatedButton.styleFrom(
-                    shape: CircleBorder(),
-                    padding: EdgeInsets.all(20),
-                    backgroundColor: Colors.blue // <-- Button color
-                    ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+                      await fetchQuestions().then((result) => {
+                            if (result != null)
+                              {
+                                Navigator.of(context).pop(),
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) =>
+                                            StandardQuizScreen(
+                                                questions: result.questions))))
+                              }
+                          });
+                    })),
+            SizedBox(height: 8),
+            Center(
               child: ElevatedButton(
                 child: Text('Time attack'),
                 onPressed: () async {
@@ -109,6 +87,33 @@ class _HomeScreenState extends State<HomeScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: ((context) => TimeAttackScreen(
+                                        questions: result.questions))))
+                          }
+                      });
+                },
+              ),
+            ),
+            SizedBox(height: 8),
+            Center(
+              child: ElevatedButton(
+                child: Text('Survival'),
+                onPressed: () async {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AbsorbPointer(
+                          child: Center(child: CircularProgressIndicator()));
+                    },
+                  );
+
+                  await fetchQuestions().then((result) => {
+                        if (result != null)
+                          {
+                            Navigator.of(context).pop(),
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => SurvivalQuizScreen(
                                         questions: result.questions))))
                           }
                       });

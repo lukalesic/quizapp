@@ -2,19 +2,18 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:quizapp/screens/standard_quiz_screen.dart';
+import 'package:quizapp/screens/survival_quiz_screen.dart';
 import 'package:quizapp/screens/time_attack_screen.dart';
-import 'package:quizapp/screens/win_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
+import '../remote/repository.dart';
 import '../style/appstyle.dart';
-import '../widgets/highscore.dart';
 import 'homescreen.dart';
 
 class LoseScreen extends StatefulWidget {
   final int correctAnswers;
   final int totalQuestions;
   final int resultScore;
-  final List highScore;
+  final List highScores;
   final String gameMode;
 
   const LoseScreen({
@@ -22,13 +21,13 @@ class LoseScreen extends StatefulWidget {
     required this.totalQuestions,
     required this.resultScore,
     required this.gameMode,
-    required this.highScore,
+    required this.highScores,
     super.key,
   });
 
   @override
   State<LoseScreen> createState() => __LoseScreenStateState(
-      correctAnswers, totalQuestions, gameMode, resultScore, highScore);
+      correctAnswers, totalQuestions, gameMode, resultScore, highScores);
 }
 
 class __LoseScreenStateState extends State<LoseScreen> {
@@ -36,23 +35,19 @@ class __LoseScreenStateState extends State<LoseScreen> {
   int totalQuestions;
   int resultScore;
   String gameMode;
-  List highScore;
+  List highScores;
 
   __LoseScreenStateState(this.correctAnswers, this.totalQuestions,
-      this.gameMode, this.resultScore, this.highScore);
+      this.gameMode, this.resultScore, this.highScores);
 
-  getScores(String gameMode) async {
-    var prefs = await SharedPreferences.getInstance();
-    String? source = prefs.getString(gameMode);
-    var maps = source != null ? jsonDecode(source) : [];
-    setState(() {
-      highScore = maps.map((e) => HighScore.fromMap(e)).toList();
-    });
+  @override
+  void initState() {
+    getScores(gameMode).then((result) => highScores = result as List);
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    getScores(gameMode);
     return Scaffold(
         backgroundColor: AppStyle.backgroundColor,
         body: Padding(
@@ -81,7 +76,7 @@ class __LoseScreenStateState extends State<LoseScreen> {
                   SizedBox(
                     height: 8,
                   ),
-                  for (var highScore in highScore)
+                  for (var highScore in highScores)
                     Text(
                       "Current high score: ${highScore.score.toString()}",
                       style: AppStyle.mainTitle,
@@ -141,6 +136,22 @@ class __LoseScreenStateState extends State<LoseScreen> {
                                                           result.questions))))
                                     }
                                 });
+                            break;
+
+                          case SurvivalQuizScreen.survivalGameMode:
+                            await fetchQuestions().then((result) => {
+                              if (result != null)
+                                {
+                                  Navigator.of(context).pop(),
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: ((context) =>
+                                              SurvivalQuizScreen(
+                                                  questions:
+                                                  result.questions))))
+                                }
+                            });
                             break;
 
                           default:
