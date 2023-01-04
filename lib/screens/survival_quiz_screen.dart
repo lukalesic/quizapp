@@ -3,28 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:quizapp/screens/lose_screen.dart';
+import '../models/question.dart';
 import '../models/highscore.dart';
 import 'win_screen.dart';
 import 'package:quizapp/style/appstyle.dart';
 import 'package:quizapp/widgets/answer_option.dart';
 import 'package:quizapp/widgets/question_widget.dart';
-import '../models/question.dart';
 
-class StandardQuizScreen extends StatefulWidget {
+class SurvivalQuizScreen extends StatefulWidget {
   final List<Question> questions;
-  static const String standardGameMode = 'standard';
+  static const String survivalGameMode = 'survival';
 
-  const StandardQuizScreen({super.key, required this.questions});
+  const SurvivalQuizScreen({super.key, required this.questions});
 
   @override
-  State<StandardQuizScreen> createState() => _QuizScreenState();
+  State<SurvivalQuizScreen> createState() => _SurvivalQuizScreenState();
 }
 
-class _QuizScreenState extends State<StandardQuizScreen>
+class _SurvivalQuizScreenState extends State<SurvivalQuizScreen>
     implements OnAnsweredListener {
   bool clickable = true;
   bool highlightAnswer = false;
-  List<HighScore> standardHighScore = List.empty(growable: true);
+  List<HighScore> survivalHighScore = List.empty(growable: true);
 
   int index = 0;
   bool isPressed = false;
@@ -44,17 +44,17 @@ class _QuizScreenState extends State<StandardQuizScreen>
         _timer.cancel();
         HighScore(
                 score: correctAnswers,
-                gameMode: StandardQuizScreen.standardGameMode)
-            .save(StandardQuizScreen.standardGameMode);
+                gameMode: SurvivalQuizScreen.survivalGameMode)
+            .save(SurvivalQuizScreen.survivalGameMode);
 
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
               builder: (BuildContext context) => WinScreen(
                     correctAnswers: correctAnswers,
                     totalQuestions: widget.questions.length,
-                    gameMode: StandardQuizScreen.standardGameMode,
+                    gameMode: SurvivalQuizScreen.survivalGameMode,
                     resultScore: correctAnswers,
-                    highScores: standardHighScore,
+                    highScores: survivalHighScore,
                   )),
           (Route<dynamic> route) => route.isFirst,
         );
@@ -81,9 +81,9 @@ class _QuizScreenState extends State<StandardQuizScreen>
                 builder: (BuildContext context) => LoseScreen(
                       correctAnswers: correctAnswers,
                       totalQuestions: widget.questions.length,
-                      gameMode: StandardQuizScreen.standardGameMode,
+                      gameMode: SurvivalQuizScreen.survivalGameMode,
                       resultScore: correctAnswers,
-                      highScores: standardHighScore,
+                      highScores: survivalHighScore,
                     )),
             (Route<dynamic> route) => route.isFirst,
           );
