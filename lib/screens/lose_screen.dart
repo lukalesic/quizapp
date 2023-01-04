@@ -56,103 +56,138 @@ class __LoseScreenStateState extends State<LoseScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("Timer expired!", style: AppStyle.mainTitle),
+                  Spacer(),
+                  Text("Timer expired!", style: AppStyle.largeTitle),
+                  Spacer(),
                   Text(
                     "Result: ${correctAnswers}/${totalQuestions}",
                     style: AppStyle.mainTitle,
                   ),
                   if (gameMode != 'standard')
-                    Text(
-                      "Score: $resultScore",
-                      style: AppStyle.mainTitle,
-                    ),
+                    Column(children: [
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        "Score: $resultScore",
+                        style: AppStyle.mainTitle,
+                      ),
+                    ]),
+                  SizedBox(
+                    height: 8,
+                  ),
                   for (var highScore in highScores)
                     Text(
                       "Current high score: ${highScore.score.toString()}",
                       style: AppStyle.mainTitle,
                     ),
-                  Text(
-                    "Tap to play again!",
-                    style: AppStyle.mainTitle,
-                  ),
+                  Spacer(),
                   SizedBox(height: 16),
                   Center(
-                      child: ElevatedButton(
-                    onPressed: () async {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AbsorbPointer(
-                              child:
-                                  Center(child: CircularProgressIndicator()));
-                        },
-                      );
+                    child: FloatingActionButton.extended(
+                      label: Text(
+                        'Play again',
+                        style: AppStyle.floatingButtonStyle,
+                      ), // <-- Text
+                      backgroundColor: AppStyle.accentColor,
+                      icon: Icon(
+                        // <-- Icon
+                        Icons.play_arrow_rounded,
+                        size: 24.0,
+                      ),
+                      onPressed: () async {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AbsorbPointer(
+                                child:
+                                    Center(child: CircularProgressIndicator()));
+                          },
+                        );
 
-                      switch (gameMode) {
-                        case StandardQuizScreen.standardGameMode:
-                          await fetchQuestions().then((result) => {
-                                if (result != null)
-                                  {
-                                    Navigator.of(context).pop(),
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: ((context) =>
-                                                StandardQuizScreen(
-                                                    questions:
-                                                        result.questions))))
-                                  }
-                              });
-                          break;
+                        switch (gameMode) {
+                          case StandardQuizScreen.standardGameMode:
+                            await fetchQuestions().then((result) => {
+                                  if (result != null)
+                                    {
+                                      Navigator.of(context).pop(),
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: ((context) =>
+                                                  StandardQuizScreen(
+                                                      questions:
+                                                          result.questions))))
+                                    }
+                                });
+                            break;
 
-                        case TimeAttackScreen.timeAttackGameMode:
-                          await fetchQuestions().then((result) => {
-                                if (result != null)
-                                  {
-                                    Navigator.of(context).pop(),
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: ((context) =>
-                                                TimeAttackScreen(
-                                                    questions:
-                                                        result.questions))))
-                                  }
-                              });
-                          break;
+                          case TimeAttackScreen.timeAttackGameMode:
+                            await fetchQuestions().then((result) => {
+                                  if (result != null)
+                                    {
+                                      Navigator.of(context).pop(),
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: ((context) =>
+                                                  TimeAttackScreen(
+                                                      questions:
+                                                          result.questions))))
+                                    }
+                                });
+                            break;
 
-                        case SurvivalQuizScreen.survivalGameMode:
-                          await fetchQuestions().then((result) => {
-                            if (result != null)
-                              {
-                                Navigator.of(context).pop(),
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: ((context) =>
-                                            SurvivalQuizScreen(
-                                                questions:
-                                                result.questions))))
-                              }
-                          });
-                          break;
+                          case SurvivalQuizScreen.survivalGameMode:
+                            await fetchQuestions().then((result) => {
+                              if (result != null)
+                                {
+                                  Navigator.of(context).pop(),
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: ((context) =>
+                                              SurvivalQuizScreen(
+                                                  questions:
+                                                  result.questions))))
+                                }
+                            });
+                            break;
 
-                        default:
-                          Navigator.of(context).pop();
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: ((context) => HomeScreen())));
-                      }
-                    },
-                    child: Icon(Icons.play_arrow_rounded, color: Colors.white),
-                    style: ElevatedButton.styleFrom(
-                      shape: CircleBorder(),
-                      padding: EdgeInsets.all(20),
-                      backgroundColor: Colors.blue, // <-- Button color
-                      foregroundColor: Colors.red, // <-- Splash color
+                          default:
+                            Navigator.of(context).pop();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => HomeScreen())));
+                        }
+                      },
                     ),
-                  ))
+                  ),
+                  SizedBox(
+                    height: 11,
+                  ),
+                  Center(
+                    child: FloatingActionButton.extended(
+                      label: Text(
+                        'Main Menu',
+                        style: AppStyle.floatingButtonStyle,
+                      ), // <-- Text
+                      backgroundColor: AppStyle.accentColor,
+                      icon: Icon(
+                        Icons.home,
+                        size: 24.0,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => HomeScreen())));
+                      },
+                    ),
+                  ),
+                  Spacer(),
                 ])));
   }
 }
