@@ -38,11 +38,3 @@ Future<Questions?> fetchQuestions() async {
     return null;
   }
 }
-
-Future<List<HighScore>> getScores(String gameMode) async {
-  var prefs = await SharedPreferences.getInstance();
-  String? source = prefs.getString(gameMode);
-  var maps = source != null ? jsonDecode(source) : [];
-
-  return maps.map((e) => HighScore.fromMap(e)).toList();
-}

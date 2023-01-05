@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:quizapp/screens/standard_quiz_screen.dart';
 import 'package:quizapp/screens/survival_quiz_screen.dart';
 import 'package:quizapp/screens/time_attack_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/highscore.dart';
 import '../remote/repository.dart';
 import '../style/appstyle.dart';
 import 'homescreen.dart';
@@ -40,14 +42,18 @@ class __LoseScreenStateState extends State<LoseScreen> {
   __LoseScreenStateState(this.correctAnswers, this.totalQuestions,
       this.gameMode, this.resultScore, this.highScores);
 
-  @override
-  void initState() {
-    getScores(gameMode).then((result) => highScores = result as List);
-    super.initState();
+  getScores(String gameMode) async {
+    var prefs = await SharedPreferences.getInstance();
+    String? source = prefs.getString(gameMode);
+    var maps = source != null ? jsonDecode(source) : [];
+    setState(() {
+      highScores = maps.map((e) => HighScore.fromMap(e)).toList();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    getScores(gameMode);
     return Scaffold(
         backgroundColor: AppStyle.backgroundColor,
         body: Padding(
@@ -140,18 +146,18 @@ class __LoseScreenStateState extends State<LoseScreen> {
 
                           case SurvivalQuizScreen.survivalGameMode:
                             await fetchQuestions().then((result) => {
-                              if (result != null)
-                                {
-                                  Navigator.of(context).pop(),
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: ((context) =>
-                                              SurvivalQuizScreen(
-                                                  questions:
-                                                  result.questions))))
-                                }
-                            });
+                                  if (result != null)
+                                    {
+                                      Navigator.of(context).pop(),
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: ((context) =>
+                                                  SurvivalQuizScreen(
+                                                      questions:
+                                                          result.questions))))
+                                    }
+                                });
                             break;
 
                           default:
