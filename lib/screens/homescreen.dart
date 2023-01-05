@@ -38,11 +38,24 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("Test your kino knowledge!", style: AppStyle.mainTitle),
-            SizedBox(height: 16),
+            Spacer(),
             Center(
-                child: ElevatedButton(
-                    child: Text('Standard'),
+              child: Text("Test your kino knowledge!",
+                  textAlign: TextAlign.center, style: AppStyle.largeTitle),
+            ),
+            Spacer(),
+            SizedBox(height: 16),
+            IntrinsicWidth(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  FloatingActionButton.extended(
+                    label: Text('Standard'), // <-- Text
+                    backgroundColor: AppStyle.accentColor,
+                    icon: Icon(
+                      Icons.gamepad,
+                      size: 24.0,
+                    ),
                     onPressed: () async {
                       showDialog(
                         context: context,
@@ -65,40 +78,51 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 questions: result.questions))))
                               }
                           });
-                    })),
-            SizedBox(height: 8),
-            Center(
-              child: ElevatedButton(
-                child: Text('Time attack'),
-                onPressed: () async {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AbsorbPointer(
-                          child: Center(child: CircularProgressIndicator()));
                     },
-                  );
+                  ),
+                  SizedBox(height: 12),
+                  FloatingActionButton.extended(
+                    label: Text('Time attack'), // <-- Text
+                    backgroundColor: AppStyle.accentColor,
+                    icon: Icon(
+                      Icons.access_alarm_rounded,
+                      size: 24.0,
+                    ),
+                    onPressed: () async {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AbsorbPointer(
+                              child:
+                                  Center(child: CircularProgressIndicator()));
+                        },
+                      );
 
-                  await fetchQuestions().then((result) => {
-                        if (result != null)
-                          {
-                            Navigator.of(context).pop(),
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: ((context) => TimeAttackScreen(
-                                        questions: result.questions))))
-                          }
-                      });
-                },
-              ),
-            ),
-            SizedBox(height: 8),
-            Center(
-              child: ElevatedButton(
-                child: Text('Survival'),
-                onPressed: () async {
-                  showDialog(
+                      await fetchQuestions().then((result) => {
+                            if (result != null)
+                              {
+                                Navigator.of(context).pop(),
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) => TimeAttackScreen(
+                                            questions: result.questions))))
+                              }
+                          });
+                    },
+                  ),
+                  SizedBox(height: 12),
+                  FloatingActionButton.extended(
+                    label: Text('Survival'), // <-- Text
+                    backgroundColor: Colors.grey,
+                    icon: Icon(
+                      // <-- Icon
+                      Icons.adb_rounded,
+                      size: 24.0,
+                    ),
+                    onPressed: null,
+                    /*         () async {
+                showDialog(
                     context: context,
                     builder: (context) {
                       return AbsorbPointer(
@@ -117,9 +141,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                         questions: result.questions))))
                           }
                       });
-                },
+                }, */
+                  ),
+                ],
               ),
-            )
+            ),
+            Spacer(),
           ],
         ),
       ),

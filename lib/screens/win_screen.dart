@@ -16,7 +16,7 @@ class WinScreen extends StatefulWidget {
   final int correctAnswers;
   final int totalQuestions;
   final int resultScore;
-  final List<HighScore> highScores;
+  final List highScores;
   final String gameMode;
 
   const WinScreen(
@@ -36,20 +36,24 @@ class _WinScreenState extends State<WinScreen> {
   int correctAnswers;
   int totalQuestions;
   int resultScore;
-  List<HighScore> highScores;
+  List highScores;
   String gameMode;
+
+  getScores(String gameMode) async {
+    var prefs = await SharedPreferences.getInstance();
+    String? source = prefs.getString(gameMode);
+    var maps = source != null ? jsonDecode(source) : [];
+    setState(() {
+      highScores = maps.map((e) => HighScore.fromMap(e)).toList();
+    });
+  }
 
   _WinScreenState(this.correctAnswers, this.totalQuestions, this.gameMode,
       this.resultScore, this.highScores);
 
   @override
-  void initState() {
-    getScores(gameMode).then((result) => highScores = result);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    getScores(gameMode);
     return Scaffold(
         backgroundColor: AppStyle.backgroundColor,
         body: Padding(
@@ -142,18 +146,18 @@ class _WinScreenState extends State<WinScreen> {
 
                           case SurvivalQuizScreen.survivalGameMode:
                             await fetchQuestions().then((result) => {
-                              if (result != null)
-                                {
-                                  Navigator.of(context).pop(),
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: ((context) =>
-                                              SurvivalQuizScreen(
-                                                  questions:
-                                                  result.questions))))
-                                }
-                            });
+                                  if (result != null)
+                                    {
+                                      Navigator.of(context).pop(),
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: ((context) =>
+                                                  SurvivalQuizScreen(
+                                                      questions:
+                                                          result.questions))))
+                                    }
+                                });
                             break;
 
                           default:
