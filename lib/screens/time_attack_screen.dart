@@ -35,18 +35,19 @@ class _TimeAttackScreenState extends State<TimeAttackScreen>
   bool isPressed = false;
   int correctAnswers = 0;
   int resultScore = 0;
-  static const int secondsPerQuestion = 5;
-  static const int bonus = 5;
-  late int timer = 5;
+  static const int secondsPerQuestion = 10;
+  // static const int bonus = 5;
+  late int timer = secondsPerQuestion;
   late Timer _timer;
 
   void nextQuestion(bool value) {
     setState(() {
       if (value == true) {
         resultScore = resultScore + timer;
-        timer = 5;
         correctAnswers++;
       }
+      timer = secondsPerQuestion;
+
       if (index == widget.questions.length - 1) {
         //end of questions
         _timer.cancel();
@@ -142,7 +143,7 @@ class _TimeAttackScreenState extends State<TimeAttackScreen>
                         circularStrokeCap: CircularStrokeCap.round,
                         backgroundColor: Colors.white,
                         progressColor: Colors.blue,
-                        percent: timer / 5,
+                        percent: timer / secondsPerQuestion,
                         animation: true,
                         animateFromLastPercent: true,
                         center: Text(
