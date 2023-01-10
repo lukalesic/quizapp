@@ -145,7 +145,7 @@ class _WinScreenState extends State<WinScreen> {
                             break;
 
                           case SurvivalQuizScreen.survivalGameMode:
-                            await fetchQuestions().then((result) => {
+                            await fetchSingleQuestion().then((result) => {
                                   if (result != null)
                                     {
                                       Navigator.of(context).pop(),
@@ -154,8 +154,7 @@ class _WinScreenState extends State<WinScreen> {
                                           MaterialPageRoute(
                                               builder: ((context) =>
                                                   SurvivalQuizScreen(
-                                                      questions:
-                                                          result.questions))))
+                                                      question: result))))
                                     }
                                 });
                             break;
