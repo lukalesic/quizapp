@@ -1,22 +1,19 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+import '../models/question.dart';
 import '../models/questions.dart';
-import '../models/highscore.dart';
 
-Future<Questions?> fetchSingleQuestion() async {
-  final response = await http
-      .get(Uri.parse('https://mdfjfuhfct.eu-west-1.awsapprunner.com/quiz/'));
+Future<Question?> fetchSingleQuestion() async {
+  final response = await http.get(
+      Uri.parse('https://mdfjfuhfct.eu-west-1.awsapprunner.com/question/'));
 
   if (response.statusCode == 200) {
-    Questions questions =
-        Questions.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
-    for (var question in questions.questions) {
-      question.movies.shuffle();
-    }
+    Question question =
+        Question.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+    question.movies.shuffle();
 
-    return questions;
+    return question;
   } else {
     return null;
   }

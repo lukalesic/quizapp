@@ -65,11 +65,12 @@ class __LoseScreenStateState extends State<LoseScreen> {
                   Spacer(),
                   Text("Timer expired!", style: AppStyle.largeTitle),
                   Spacer(),
-                  Text(
-                    "Result: ${correctAnswers}/${totalQuestions}",
-                    style: AppStyle.mainTitle,
-                  ),
-                  if (gameMode != 'standard')
+                  if (gameMode != SurvivalQuizScreen.survivalGameMode)
+                    Text(
+                      "Result: ${correctAnswers}/${totalQuestions}",
+                      style: AppStyle.mainTitle,
+                    ),
+                  if (gameMode != StandardQuizScreen.standardGameMode)
                     Column(children: [
                       SizedBox(
                         height: 8,
@@ -145,7 +146,7 @@ class __LoseScreenStateState extends State<LoseScreen> {
                             break;
 
                           case SurvivalQuizScreen.survivalGameMode:
-                            await fetchQuestions().then((result) => {
+                            await fetchSingleQuestion().then((result) => {
                                   if (result != null)
                                     {
                                       Navigator.of(context).pop(),
@@ -154,8 +155,7 @@ class __LoseScreenStateState extends State<LoseScreen> {
                                           MaterialPageRoute(
                                               builder: ((context) =>
                                                   SurvivalQuizScreen(
-                                                      questions:
-                                                          result.questions))))
+                                                      question: result))))
                                     }
                                 });
                             break;

@@ -114,34 +114,35 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(height: 12),
                   FloatingActionButton.extended(
                     label: Text('Survival'), // <-- Text
-                    backgroundColor: Colors.grey,
+                    backgroundColor: AppStyle.accentColor,
                     icon: Icon(
                       // <-- Icon
                       Icons.adb_rounded,
                       size: 24.0,
                     ),
-                    onPressed: null,
-                    /*         () async {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AbsorbPointer(
-                          child: Center(child: CircularProgressIndicator()));
-                    },
-                  );
+                    onPressed: () async {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const AbsorbPointer(
+                              child:
+                                  Center(child: CircularProgressIndicator()));
+                        },
+                      );
 
-                  await fetchQuestions().then((result) => {
-                        if (result != null)
-                          {
-                            Navigator.of(context).pop(),
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: ((context) => SurvivalQuizScreen(
-                                        questions: result.questions))))
-                          }
-                      });
-                }, */
+                      await fetchSingleQuestion().then((result) => {
+                            if (result != null)
+                              {
+                                Navigator.of(context).pop(),
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) =>
+                                            SurvivalQuizScreen(
+                                                question: result))))
+                              }
+                          });
+                    },
                   ),
                 ],
               ),
